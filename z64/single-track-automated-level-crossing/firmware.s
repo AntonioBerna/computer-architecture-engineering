@@ -10,6 +10,7 @@
 .text
     switch_bar:
         pushb %al
+
         movb operation, %al
         outb %al, $BAR_DIRECTION
         outb %al, $BAR_STATUS
@@ -20,6 +21,7 @@
         jnc .bw
 
         addb $1, operation
+        
         popb %al
         ret
 
