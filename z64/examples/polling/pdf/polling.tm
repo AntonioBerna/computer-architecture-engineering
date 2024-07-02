@@ -31,7 +31,7 @@
   represented as a classic input devices:
 
   <big-figure|<image|/home/berna/Desktop/computer-architecture-engineering/z64/examples/busy-waiting/peripheral-interfaces/input.png|0.8par|||>|The
-  <shell|VOLTAGE> peripheral>
+  <shell|P1>, <shell|P2>, <shell|P3>, <shell|P4> peripherals>
 
   <subsubsection|Firmware>
 
