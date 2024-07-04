@@ -32,12 +32,12 @@
         hlt
         jmp .loop
 
-.driver 1 # Left BOA
-    call switch_bar
-    outb %al, $BOA_SX_IRQ
-    iret
+    .driver 1 # Left BOA
+        call switch_bar
+        outb %al, $BOA_SX_IRQ
+        iret
 
-.driver 2 # Right BOA
-    call switch_bar
-    outb %al, $BOA_DX_IRQ
-    iret
+    .driver 2 # Right BOA
+        call switch_bar
+        outb %al, $BOA_DX_IRQ
+        iret

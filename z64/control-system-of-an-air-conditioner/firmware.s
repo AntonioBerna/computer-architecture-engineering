@@ -93,10 +93,12 @@
         jnc .else2
         call active_dehumidifier
         jmp .end
+    
     .else2:
         btb $5, (%rsp)
         jnc .end
         call active_air_conditioner
+    
     .end:
         addq $1, %rsp
         iret

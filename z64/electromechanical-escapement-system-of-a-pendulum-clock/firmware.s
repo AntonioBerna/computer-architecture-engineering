@@ -85,24 +85,24 @@
         movq $0, photocell2_passed
         jmp .main_loop
 
-.driver 1 # PHOTOCELL 1
-    cmpb $0, direction
-    jnz .ret
-    call start_timer
-    movq $1, %rdx
-    call enable_photocell
-.ret:
-    outb %al, $PHOTOCELL_1_IRQ
-    movb $0, direction
-    iret
+    .driver 1 # PHOTOCELL 1
+        cmpb $0, direction
+        jnz .ret
+        call start_timer
+        movq $1, %rdx
+        call enable_photocell
+    .ret:
+        outb %al, $PHOTOCELL_1_IRQ
+        movb $0, direction
+        iret
 
-.driver 2 # PHOTOCELL 2
-    outb %al, $PHOTOCELL_2_IRQ
-    movb $1, direction
-    call acquire_time
-    movl %eax, time
-    # The photocell 1 is enabled to determine the change of direction of the pendulum
-    movb $1, photocell2_passed
-    movb $0, %rdx
-    call enable_photocell
-    iret
+    .driver 2 # PHOTOCELL 2
+        outb %al, $PHOTOCELL_2_IRQ
+        movb $1, direction
+        call acquire_time
+        movl %eax, time
+        # The photocell 1 is enabled to determine the change of direction of the pendulum
+        movb $1, photocell2_passed
+        movb $0, %rdx
+        call enable_photocell
+        iret

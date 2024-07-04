@@ -25,23 +25,23 @@
         hlt
         jmp .loop
 
-.driver 1 # GEARBOX
-    pushq %rax
-    pushq %rcx
+    .driver 1 # GEARBOX
+        pushq %rax
+        pushq %rcx
 
-    inb $GEARBOX_COUNTER, %al
-    addb %al, gear
-    outb %al, $GEARBOX_IRQ
-    movzbq gear, %rcx
-    movb bit_stream(, %rcx, 1), %al
-    outb %al, $GEAR_BIT_STREAM
-    outb %al, $GEAR_STATUS
+        inb $GEARBOX_COUNTER, %al
+        addb %al, gear
+        outb %al, $GEARBOX_IRQ
+        movzbq gear, %rcx
+        movb bit_stream(, %rcx, 1), %al
+        outb %al, $GEAR_BIT_STREAM
+        outb %al, $GEAR_STATUS
 
-.bw:
-    inb $GEAR_STATUS, %al
-    btb $0, %al
-    jnc .bw
+    .bw:
+        inb $GEAR_STATUS, %al
+        btb $0, %al
+        jnc .bw
 
-    popq %rcx
-    popq %rax
-    iret
+        popq %rcx
+        popq %rax
+        iret

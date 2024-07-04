@@ -28,19 +28,19 @@
         hlt
         jmp .loop
 
-.driver 1 # PRODUCER
-    pushq %rax
+    .driver 1 # PRODUCER
+        pushq %rax
 
-    inb $PRODUCER_REG, %al
-    outb %al, $PRODUCER_IRQ # Delete the interruption
+        inb $PRODUCER_REG, %al
+        outb %al, $PRODUCER_IRQ # Delete the interruption
 
-    movb %al, buffer
-    addb $1, turn
+        movb %al, buffer
+        addb $1, turn
 
-    popq %rax
-    iret
+        popq %rax
+        iret
 
-.driver 2 # CONSUMER
-    outb %al, $CONSUMER_IRQ # Delete the interruption
-    addb $1, turn # Change the turn
-    iret
+    .driver 2 # CONSUMER
+        outb %al, $CONSUMER_IRQ # Delete the interruption
+        addb $1, turn # Change the turn
+        iret

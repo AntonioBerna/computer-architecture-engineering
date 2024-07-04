@@ -89,62 +89,62 @@
         
         jmp .loop
 
-.driver 1 # SENSOR1
-    pushq %rdi
-    pushq %rsi
-    pushq %rdx
+    .driver 1 # SENSOR1
+        pushq %rdi
+        pushq %rsi
+        pushq %rdx
 
-    movq $SENSOR1_REG, %rdi
-    movq $SENSOR1_STATUS, %rsi
-    movq $SENSOR1_IRQ, %rdx
-    call get
+        movq $SENSOR1_REG, %rdi
+        movq $SENSOR1_STATUS, %rsi
+        movq $SENSOR1_IRQ, %rdx
+        call get
 
-    popq %rdx
-    popq %rsi
-    popq %rdi
-    iret
+        popq %rdx
+        popq %rsi
+        popq %rdi
+        iret
 
-.driver 2 # SENSOR2
-    pushq %rdi
-    pushq %rsi
-    pushq %rdx
+    .driver 2 # SENSOR2
+        pushq %rdi
+        pushq %rsi
+        pushq %rdx
 
-    movq $SENSOR2_REG, %rdi
-    movq $SENSOR2_STATUS, %rsi
-    movq $SENSOR2_IRQ, %rdx
-    call get
+        movq $SENSOR2_REG, %rdi
+        movq $SENSOR2_STATUS, %rsi
+        movq $SENSOR2_IRQ, %rdx
+        call get
 
-    popq %rdx
-    popq %rsi
-    popq %rdi
-    iret
+        popq %rdx
+        popq %rsi
+        popq %rdi
+        iret
 
-.driver 3 # SENSOR3
-    pushq %rdi
-    pushq %rsi
-    pushq %rdx
+    .driver 3 # SENSOR3
+        pushq %rdi
+        pushq %rsi
+        pushq %rdx
 
-    movq $SENSOR3_REG, %rdi
-    movq $SENSOR3_STATUS, %rsi
-    movq $SENSOR3_IRQ, %rdx
-    call get
+        movq $SENSOR3_REG, %rdi
+        movq $SENSOR3_STATUS, %rsi
+        movq $SENSOR3_IRQ, %rdx
+        call get
 
-    popq %rdx
-    popq %rsi
-    popq %rdi
-    iret
+        popq %rdx
+        popq %rsi
+        popq %rdi
+        iret
 
-.driver 4 # SENSOR4
-    pushq %rdi
-    pushq %rsi
-    pushq %rdx
+    .driver 4 # SENSOR4
+        pushq %rdi
+        pushq %rsi
+        pushq %rdx
 
-    movq $SENSOR4_REG, %rdi
-    movq $SENSOR4_STATUS, %rsi
-    movq $SENSOR4_IRQ, %rdx
-    call get
+        movq $SENSOR4_REG, %rdi
+        movq $SENSOR4_STATUS, %rsi
+        movq $SENSOR4_IRQ, %rdx
+        call get
 
-    popq %rdx
-    popq %rsi
-    popq %rdi
-    iret
+        popq %rdx
+        popq %rsi
+        popq %rdi
+        iret

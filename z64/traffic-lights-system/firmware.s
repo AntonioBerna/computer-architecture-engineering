@@ -91,11 +91,11 @@
     	call time_it
     	jmp .loop
 
-.driver 1 # BUTTON
-  	movb $STATES - 1, state
-  	outb %al, $BUTTON_IRQ
-  	iret
+	.driver 1 # BUTTON
+		movb $STATES - 1, state
+		outb %al, $BUTTON_IRQ
+		iret
 
-.driver 2 # TIMER
-  	outb %al, $TIMER_IRQ
-  	iret
+	.driver 2 # TIMER
+		outb %al, $TIMER_IRQ
+		iret

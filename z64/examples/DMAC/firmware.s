@@ -26,30 +26,30 @@
         hlt
         jmp .end
 
-.driver 0 # TIMER
-    outb %al, $TEMPERATURE_STATUS
+    .driver 0 # TIMER
+        outb %al, $TEMPERATURE_STATUS
 
-.bw:
-    inb $TEMPERATURE_STATUS, %al
-    btb $0, %al
-    jnc .bw
+    .bw:
+        inb $TEMPERATURE_STATUS, %al
+        btb $0, %al
+        jnc .bw
 
-    inb $TEMPERATURE_REG, %al
+        inb $TEMPERATURE_REG, %al
 
-    cmpb $theshold, %al
-    jc .lower # %al < $theshold if CF = 1
+        cmpb $theshold, %al
+        jc .lower # %al < $theshold if CF = 1
 
-    movw $MONITOR, %dx # Program the system DMAC
-    movq $msg, %rsi
-    movq $len, %rcx
-    cld
-    outsb # Transfers one byte at a time to the MONITOR
+        movw $MONITOR, %dx # Program the system DMAC
+        movq $msg, %rsi
+        movq $len, %rcx
+        cld
+        outsb # Transfers one byte at a time to the MONITOR
 
-.lower:
-    movb $0, %al
-    outb %al, $TIMER # Delete the interruption
+    .lower:
+        movb $0, %al
+        outb %al, $TIMER # Delete the interruption
 
-    movb $1, %al
-    outb %al, $TIMER # Restart TIMER
-    
-    iret
+        movb $1, %al
+        outb %al, $TIMER # Restart TIMER
+        
+        iret
