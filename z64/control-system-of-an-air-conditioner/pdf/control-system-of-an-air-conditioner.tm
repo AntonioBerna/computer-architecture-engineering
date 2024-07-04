@@ -55,8 +55,8 @@
   algorithm:
 
   <\itemize-minus>
-    <item>if the difference between the current and requested temperature is,
-    the fan is activated at speed 1
+    <item>if the difference between the current and requested temperature is
+    <math|\<less\>4 <rsup|\<circ\>>C>, the fan is activated at speed 1
 
     <item>if the difference between the current temperature and the requested
     one is between <math|4 <rsup|\<circ\>>C> and <math|8 <rsup|\<circ\>>C>,
@@ -116,17 +116,34 @@
     <associate|auto-1|<tuple|1|1>>
     <associate|auto-2|<tuple|1.1|1>>
     <associate|auto-3|<tuple|1|1>>
-    <associate|auto-4|<tuple|1.2|1>>
-    <associate|auto-5|<tuple|1.2.1|1>>
-    <associate|auto-6|<tuple|1|?>>
-    <associate|auto-7|<tuple|2|?>>
-    <associate|auto-8|<tuple|3|?>>
-    <associate|auto-9|<tuple|1.2.2|?>>
+    <associate|auto-4|<tuple|1.2|2>>
+    <associate|auto-5|<tuple|1.2.1|2>>
+    <associate|auto-6|<tuple|1|2>>
+    <associate|auto-7|<tuple|2|2>>
+    <associate|auto-8|<tuple|3|2>>
+    <associate|auto-9|<tuple|1.2.2|2>>
   </collection>
 </references>
 
 <\auxiliary>
   <\collection>
+    <\associate|figure>
+      <tuple|normal|<surround|<hidden-binding|<tuple>|1>||The
+      <with|mode|<quote|prog>|prog-language|<quote|shell>|font-family|<quote|rm>|THERMOMETER>
+      peripheral>|<pageref|auto-6>>
+
+      <tuple|normal|<surround|<hidden-binding|<tuple>|2>||The
+      <with|mode|<quote|prog>|prog-language|<quote|shell>|font-family|<quote|rm>|RECEIVER>
+      peripheral>|<pageref|auto-7>>
+
+      <tuple|normal|<surround|<hidden-binding|<tuple>|3>||The
+      <with|mode|<quote|prog>|prog-language|<quote|shell>|font-family|<quote|rm>|FAN>
+      peripheral>|<pageref|auto-8>>
+    </associate>
+    <\associate|table>
+      <tuple|normal|<surround|<hidden-binding|<tuple>|1>||Example
+      configuration>|<pageref|auto-3>>
+    </associate>
     <\associate|toc>
       <vspace*|1fn><with|font-series|<quote|bold>|math-font-series|<quote|bold>|1<space|2spc>Project>
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
@@ -138,15 +155,15 @@
 
       <with|par-left|<quote|1tab>|1.2<space|2spc>Implementation
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-3>>
+      <no-break><pageref|auto-4>>
 
       <with|par-left|<quote|2tab>|1.2.1<space|2spc>Hardware
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-4>>
+      <no-break><pageref|auto-5>>
 
       <with|par-left|<quote|2tab>|1.2.2<space|2spc>Firmware
       <datoms|<macro|x|<repeat|<arg|x>|<with|font-series|medium|<with|font-size|1|<space|0.2fn>.<space|0.2fn>>>>>|<htab|5mm>>
-      <no-break><pageref|auto-5>>
+      <no-break><pageref|auto-9>>
     </associate>
   </collection>
 </auxiliary>
