@@ -1,3 +1,4 @@
 # computer-architecture-engineering
 
-Computer Architecture Engineering (Assembly and C)
+> [!WARNING]
+> This repository is unfinished. Keep your expectations low.
