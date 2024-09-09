@@ -1,16 +1,33 @@
 #!/bin/sh
 
-CFLAGS="-Wall -Wextra -Werror -g -std=c11"
+CFLAGS="-Wall -Wextra -Werror -Wpedantic -g -std=c11"
 TARGET="main"
-DIR="build"
+BINARY="bin"
+LOG="log"
+VALGRIND_FLAGS="--leak-check=full --show-leak-kinds=all --log-file=$LOG/valgrind.txt"
+TARGET_OPTIONS="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20"
 
-mkdir -p $DIR
+mkdir -p $BINARY
 
-if [ "$1" = "clean" ]; then
-    rm -r $DIR
+if [ "$1" = "-c" ]; then
+    rm -r $BINARY $LOG
     echo "Clean completed."
     exit 0
+elif [ "$1" = "-b" ]; then
+    gcc $CFLAGS -o $BINARY/$TARGET $TARGET.c
+    echo "Build completed. Run with ./$BINARY/$TARGET"
+    exit 0
+elif [ "$1" = "-v" ]; then
+    gcc $CFLAGS -o $BINARY/$TARGET $TARGET.c
+    mkdir -p $LOG
+    valgrind $VALGRIND_FLAGS $BINARY/$TARGET $TARGET_OPTIONS
+    echo "Valgrind completed. Check ./$LOG/valgrind.txt"
+    exit 0
+else
+    echo "Usage: $0 [option]"
+    echo "Options:"
+    echo "  -c    Clean the build artifacts"
+    echo "  -b    Build the project"
+    echo "  -v    Test the project with Valgrind"
+    exit 1
 fi
-
-gcc $CFLAGS -o $DIR/$TARGET $TARGET.c
-echo "Build completed. Run with ./$DIR/$TARGET"

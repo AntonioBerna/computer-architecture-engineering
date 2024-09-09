@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CFLAGS="-Wall -Wextra -Werror -g -std=c11"
+CFLAGS="-Wall -Wextra -Werror -Wpedantic -g -std=c11"
 TARGET="main"
 DIR="build"
 
