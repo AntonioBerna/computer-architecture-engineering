@@ -1,6 +1,5 @@
-// Si scriva un programma in linguaggio C che legga un numero qualsiasi di
-// interi positivi e visualizzi la loro media aritmetica.
-// Si può utilizzare lo zero come indicazione che non si intende acquisire più numeri.
+// Write a C program that reads any number of positive integers and displays their arithmetic mean.
+// You can use zero as an indication that you do not want to acquire any more numbers.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +7,7 @@
 #include <assert.h>
 
 typedef struct {
-    uint64_t *array;
+    uint64_t *vector;
     uint64_t size;
     double sum;
     double average;
@@ -17,34 +16,34 @@ typedef struct {
 #define BASE 10
 static void calc_init(calc_t *c, const int32_t argc, const char **argv) {
     c->size = argc - 1;
-    c->array = calloc(c->size, sizeof(*(c->array)));
-    assert(c->array != NULL);
+    c->vector = calloc(c->size, sizeof(*(c->vector)));
+    assert(c->vector != NULL);
     for (uint64_t i = 1, j = 0; j < c->size; ++i, ++j) {
-        *(c->array + j) = strtoul(*(argv + i), (char **)NULL, BASE);
+        *(c->vector + j) = strtoul(*(argv + i), (char **)NULL, BASE);
     }
     c->sum = c->average = 0.0;
 }
 #undef BASE
 
-static void calc_print_array(const calc_t *c) {
+static void calc_print_vector(const calc_t *c) {
     printf("You entered: ");
     for (uint64_t i = 0; i < c->size; ++i) {
-        printf("%lu ", *(c->array + i));
+        printf("%lu ", *(c->vector + i));
     }
     puts("");
 }
 
 static void calc_get_average(calc_t *c) {
     for (uint64_t i = 0; i < c->size; ++i) {
-        c->sum += *(c->array + i);
+        c->sum += *(c->vector + i);
     }
     c->average = c->sum / c->size;
     printf("Arithmetic average: %.2lf\n", c->average);
 }
 
 static void calc_free(calc_t *c) {
-    free(c->array);
-    c->array = NULL;
+    free(c->vector);
+    c->vector = NULL;
 }
 
 int32_t main(int32_t argc, const char **argv) {
@@ -55,7 +54,7 @@ int32_t main(int32_t argc, const char **argv) {
 
     calc_t c;
     calc_init(&c, argc, argv);
-    calc_print_array(&c);
+    calc_print_vector(&c);
     calc_get_average(&c);
     calc_free(&c);
 
