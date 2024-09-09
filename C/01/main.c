@@ -56,7 +56,7 @@ int32_t main(int32_t argc, const char **argv) {
     calc_t c;
     calc_init(&c, argc, argv);
     calc_print_array(&c);
-    calc_get_average(&c);    
+    calc_get_average(&c);
     calc_free(&c);
 
     return 0;

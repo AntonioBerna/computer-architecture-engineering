@@ -26,7 +26,7 @@ elif [ "$1" = "-v" ]; then
 else
     echo "Usage: $0 [option]"
     echo "Options:"
-    echo "  -c    Clean the build artifacts"
+    echo "  -c    Clean the project"
     echo "  -b    Build the project"
     echo "  -v    Test the project with Valgrind"
     exit 1
