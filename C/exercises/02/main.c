@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <errno.h>
 
-enum operations { ADD, SUB, MULT, DIV };
+typedef enum { ADD, SUB, MULT, DIV } op_t;
 
 typedef struct {
     double A;
@@ -37,7 +37,7 @@ static void set_operand(const char **argv) {
     c.result = 0.0;
 }
 
-static void do_operation(const enum operations op) {
+static void do_operation(const op_t op) {
     switch (op) {
         case ADD:
             c.operation = '+';
@@ -69,7 +69,7 @@ int main(int argc, const char **argv) {
 
     set_operand(argv);
     
-    enum operations op = ADD;
+    op_t op = ADD;
     uint32_t no_operations = DIV - ADD + 1;
     for (uint32_t i = 0; i < no_operations; ++i, ++op) {
         do_operation(op);
