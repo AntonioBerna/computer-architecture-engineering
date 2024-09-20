@@ -65,7 +65,7 @@ int main(int argc, const char **argv) {
     set_side(&fig, argv);
     void (*areas[3])(struct figure *) = { square_area, circle_area, triangle_area };
     enum figures f = SQUARE;
-    for (int i = 0; i < TRIANGLE - SQUARE + 1; i++) {
+    for (int i = 0; i < TRIANGLE - SQUARE + 1; ++i) {
         get_area(&fig, f, *(areas + i));
         printf("%s area: %.3lf\n", fig.name, fig.area);
         f++;
