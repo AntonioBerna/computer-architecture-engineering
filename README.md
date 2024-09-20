@@ -5,5 +5,3 @@
 
 > [!WARNING]
 > All the `*.c` files without `build.sh` file in the same directory are finished. The other ones is unfinished.
-
-
