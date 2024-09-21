@@ -21,8 +21,8 @@ typedef struct {
 calc_t c;
 
 static void calc_init(void) {
-    c.vector = NULL;
     c.size = 0;
+    c.vector = NULL;
     c.sum = c.average = 0.0;
 }
 
@@ -67,10 +67,7 @@ static void final_report(void) {
     }
 }
 
-static void calc_free(void) {
-    free(c.vector);
-    calc_init();
-}
+static void calc_free(void) { free(c.vector); }
 
 static void signal_handler(int32_t sig) {
     if (sig == SIGINT) {

@@ -4,7 +4,7 @@
 > This repository is unfinished. Keep your expectations low.
 
 > [!WARNING]
-> All the `*.c` files with `pdf/` directory in the same directory are finished. The other ones is unfinished.
+> All the `*.c` files with `pdf/*.pdf` file in the same directory are finished. The other ones is unfinished.
 
 ## mini docs
 
