@@ -39,8 +39,6 @@ static bool to_double(const char *buffer, double *value) {
     return !(errno == ERANGE || endptr == buffer || (*endptr && *endptr != '\n'));
 }
 
-static void set_side(double number) { fig.D = number; }
-
 static void square_area(figure_t *fig) { fig->area = pow(fig->D, 2); }
 static void circle_area(figure_t *fig) { fig->area = M_PI * pow(fig->D, 2); }
 static void triangle_area(figure_t *fig) { fig->area = (sqrt(3) / 4) * pow(fig->D, 2); }
@@ -61,6 +59,11 @@ static void free_figure(void) { free(fig.name); }
 static void signal_handler(int32_t sig) {
     if (sig == SIGINT) {
         puts("\nSIGINT signal received.");
+
+        if (fig.name != NULL) {
+            free_figure();
+        }
+
         exit(EXIT_SUCCESS);
     }
 }
@@ -90,18 +93,15 @@ int32_t main(void) {
     }
     buffer[strcspn(buffer, "\n")] = '\0';
 
-    double number;
-    if (!to_double(buffer, &number)) {
+    if (!to_double(buffer, &fig.D)) {
         fprintf(stderr, "Invalid input: %s\nPlease enter a valid number.\n", buffer);
         exit(EXIT_FAILURE);
     }
 
-    if (number <= 0) {
+    if (fig.D <= 0) {
         fprintf(stderr, "Invalid input: %s\nOnly positive numbers are allowed.\n", buffer);
         exit(EXIT_FAILURE);
     }
-    
-    set_side(number);
 
     void (*areas[TRIANGLE + 1])(figure_t *) = { square_area, circle_area, triangle_area };
 

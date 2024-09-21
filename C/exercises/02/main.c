@@ -51,15 +51,6 @@ static bool get_user_input(const char *msg, double *value) {
     return true;
 }
 
-static void set_operand(double A, double B) {
-    c.A = A;
-    if (B == 0.0) {
-        fprintf(stderr, "Division by zero is not allowed.\n");
-        exit(EXIT_FAILURE);
-    }
-    c.B = B;
-}
-
 static void do_operation(const op_t op) {
     switch (op) {
         case ADD:
@@ -84,40 +75,20 @@ static void do_operation(const op_t op) {
     }
 }
 
-static void signal_handler(int32_t sig) {
-    if (sig == SIGINT) {
-        puts("\nSIGINT signal received.");
-        exit(EXIT_SUCCESS);
-    }
-}
-
 int32_t main(void) {
-    struct sigaction sa;
-    
-    memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = &signal_handler;
-    sa.sa_flags = 0;
-    if (sigemptyset(&sa.sa_mask) == -1) {
-        perror("sigemptyset");
-        exit(EXIT_FAILURE);
-    }
-    if (sigaction(SIGINT, &sa, NULL) == -1) {
-        perror("sigaction");
-        exit(EXIT_FAILURE);
-    }
-
     calc_init();
-
-    double A, B;
-    if (!get_user_input("A = ", &A)) {
+    if (!get_user_input("A = ", &c.A)) {
         fprintf(stderr, "Invalid input.\n");
         exit(EXIT_FAILURE);
     }
-    if (!get_user_input("B = ", &B)) {
+    if (!get_user_input("B = ", &c.B)) {
         fprintf(stderr, "Invalid input.\n");
         exit(EXIT_FAILURE);
     }
-    set_operand(A, B);
+    if (c.B == 0.0) {
+        fprintf(stderr, "Division by zero is not allowed.\n");
+        exit(EXIT_FAILURE);
+    }
     
     op_t op = ADD;
     for (uint64_t i = 0; i < OP_COUNT; ++i, ++op) {

@@ -3,16 +3,14 @@
 <style|generic>
 
 <\body>
-  <doc-data|<doc-title|Problem 02>|<doc-author|<author-data|<author-name|Antonio
+  <doc-data|<doc-title|Problem 06>|<doc-author|<author-data|<author-name|Antonio
   Bernardini>>>>
 
   <section|Requirements to implement>
 
-  Write a program in <shell|C> language capable of performing the 4
-  operations between two real numbers entered from the keyboard. After the
-  two numbers, called <math|A> and <math|B>, have been entered, the program
-  must display the four values <math|A+B>, <math|A\<minus\>B>,
-  <math|A\<cdot\>B> and <math|<frac|A|B>>. Assume that <math|B\<neq\>0>.
+  Given the equation <math|a*x+b=0> with <math|a> and <math|b> entered from
+  the keyboard, write a <shell|C> program to determine the value of <math|x>,
+  if it exists, that solves the equation.
 
   <section|Solution>
 
