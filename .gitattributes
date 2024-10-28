@@ -1,3 +1,2 @@
 *.tm linguist-detectable=false
 *.dig linguist-detectable=true
-*.dig linguist-language=Digital
