@@ -1,47 +1,104 @@
-/*
-Dato un numero intero tra 1 e 12, che rappresenta il mese corrente, stampare il
-nome del mese per esteso (“Gennaio” ... “Dicembre”).
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <assert.h>
 #include <string.h>
+#include <stdbool.h>
+#include <errno.h>
 
-const char *months[] = {
-    "Gennaio", "Febbario", "Marzo",
-    "Aprile", "Maggio", "Giugno",
-    "Luglio", "Agosto", "Settembre",
-    "Ottobre", "Novembre", "Dicembre"
-};
+#ifdef __linux__
+#define __USE_POSIX
+#endif
+#include <signal.h>
 
-struct month {
-    int number;
-    char *name;
+static const char *months[] = {
+    "January", "February", "March",
+    "April", "May", "June",
+    "July", "August", "September",
+    "October", "November", "December"
 };
 
 #define BASE 10
-static void fill_month(struct month *m, const char **argv) {
-    m->number = (int)strtol(*(argv + 1), (char **)NULL, BASE);
-    assert(m->number > 0 && m->number < 13);
-    m->name = malloc(sizeof(char));
-    assert(m->name != NULL);
+static bool to_uint8(const char *buffer, uint8_t *value) {
+    char *endptr;
+    errno = 0;
+    *value = (uint8_t)strtol(buffer, &endptr, BASE);
+    return !(errno == ERANGE || endptr == buffer || (*endptr && *endptr != '\n'));
 }
 #undef BASE
 
-static void get_month(struct month *m) {
-    strcpy(m->name, *(months + m->number - 1));
+static void get_user_input(const char *msg, uint8_t *value) {
+    char buffer[BUFSIZ];
+
+    while (true) {
+        printf("%s", msg);
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        if (!to_uint8(buffer, value)) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+        if (*value < 1 || *value > 12) {
+            fprintf(stderr, "Invalid input: %d\nOnly 1-12 are valid.\n", *value);
+            continue;
+        }
+
+        break;
+    }
 }
 
-int main(int argc, const char **argv) {
-    struct month m;
-    if (argc != 2) {
-        fprintf(stderr, "Try again with: %s [n]\n", argv[0]);
+static const char *get_month(uint8_t number) {
+    return *(months + --number);
+}
+
+static void signal_handler(const int32_t sig) {
+    if (sig == SIGINT) {
+        puts("\nSIGINT signal received.");        
+        exit(EXIT_SUCCESS);
+    }
+}
+
+static void setup_signal_handling(void) {
+    struct sigaction sa;
+    sigset_t set;
+
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = signal_handler;
+    sa.sa_flags = 0;
+    if (sigemptyset(&sa.sa_mask) == -1) {
+        perror("sigemptyset");
         exit(EXIT_FAILURE);
     }
-    fill_month(&m, argv);
-    get_month(&m);
-    printf("%s\n", m.name);
-    free(m.name);
+    if (sigaction(SIGINT, &sa, NULL) == -1) {
+        perror("sigaction");
+        exit(EXIT_FAILURE);
+    }
+
+    // ? Block all signals except SIGINT.
+    if (sigfillset(&set) == -1) {
+        perror("sigfillset");
+        exit(EXIT_FAILURE);
+    }
+    if (sigdelset(&set, SIGINT) == -1) {
+        perror("sigdelset");
+        exit(EXIT_FAILURE);
+    }
+    if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
+        perror("sigprocmask");
+        exit(EXIT_FAILURE);
+    }
+}
+
+int32_t main(void) {
+    setup_signal_handling();
+
+    uint8_t number;
+    get_user_input("Enter a month number: ", &number);
+    printf("%s\n", get_month(number));
+
     return 0;
 }

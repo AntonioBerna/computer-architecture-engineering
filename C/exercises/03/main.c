@@ -96,7 +96,7 @@ static void free_figure(void) {
     }
 }
 
-static void signal_handler(int32_t sig) {
+static void signal_handler(const int32_t sig) {
     if (sig == SIGINT) {
         puts("\nSIGINT signal received.");
 

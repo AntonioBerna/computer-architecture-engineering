@@ -1,10 +1,4 @@
-/*
-Si realizzi un programma in linguaggio C per risolvere equazioni di secondo grado.
-In particolare, data una generica equazione di secondo grado nella forma a * x^2 + b * x + c = 0
-dove a, b, c sono coefficienti reali noti e x rappresenta l’incognita, il programma determini le due radici x1 ed x2
-dell’equazione data, ove esse esistano. Si identifichino tutti i casi particolari (a = 0, ∆ ≤ 0, ...) e si
-stampino gli opportuni messaggi informativi.
-*/
+// TODO: Refactor this code...
 
 #include <stdio.h>
 #include <stdlib.h>

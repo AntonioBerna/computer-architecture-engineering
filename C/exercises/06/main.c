@@ -22,7 +22,7 @@ typedef struct {
 
 eqn_t eqn;
 
-static char *messages[] = {
+static const char *messages[] = {
     "Indeterminate equation",
     "Impossible equation",
     "Equation solved\na * x + b = 0 => x = -b / a = %.2lf"
@@ -89,7 +89,7 @@ static void free_eqn(void) {
     }
 }
 
-static void signal_handler(int32_t sig) {
+static void signal_handler(const int32_t sig) {
     if (sig == SIGINT) {
         puts("\nSIGINT signal received.");
         

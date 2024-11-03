@@ -38,7 +38,7 @@ static void get_user_input(const char *msg, double *value) {
     }
 }
 
-static void signal_handler(int32_t sig) {
+static void signal_handler(const int32_t sig) {
     if (sig == SIGINT) {
         puts("\nSIGINT signal received.");
         exit(EXIT_SUCCESS);
