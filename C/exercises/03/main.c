@@ -39,6 +39,31 @@ static bool to_double(const char *buffer, double *value) {
     return !(errno == ERANGE || endptr == buffer || (*endptr && *endptr != '\n'));
 }
 
+static void get_user_input(const char *msg, double *value) {
+    char buffer[BUFSIZ];
+
+    while (true) {
+        printf("%s", msg);
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        if (!to_double(buffer, value)) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+
+        if (*value <= 0.0) {
+            fprintf(stderr, "Invalid input: %.2lf\nOnly positive numbers are allowed.\n", *value);
+            continue;
+        }
+    
+        break;
+    }
+}
+
 static void square_area(figure_t *fig) { fig->area = pow(fig->D, 2); }
 static void circle_area(figure_t *fig) { fig->area = M_PI * pow(fig->D, 2); }
 static void triangle_area(figure_t *fig) { fig->area = (sqrt(3) / 4) * pow(fig->D, 2); }
@@ -54,25 +79,39 @@ static void get_area(figure_t *fig, const figure_type_t type, void (*get_area)(f
     get_area(fig);
 }
 
-static void free_figure(void) { free(fig.name); }
+static void final_report(void) {
+    void (*areas[FIGURE_TYPE_COUNT])(figure_t *) = { square_area, circle_area, triangle_area };
+
+    figure_type_t type = SQUARE;
+    for (uint64_t i = 0; i < FIGURE_TYPE_COUNT; ++i, ++type) {
+        get_area(&fig, type, *(areas + i));
+        printf("%s area: %.2lf\n", fig.name, fig.area);
+    }
+}
+
+static void free_figure(void) {
+    if (fig.name != NULL) {
+        free(fig.name);
+        fig.name = NULL;
+    }
+}
 
 static void signal_handler(int32_t sig) {
     if (sig == SIGINT) {
         puts("\nSIGINT signal received.");
 
-        if (fig.name != NULL) {
-            free_figure();
-        }
+        free_figure();
 
         exit(EXIT_SUCCESS);
     }
 }
 
-int32_t main(void) {
+static void setup_signal_handling(void) {
     struct sigaction sa;
-    
+    sigset_t set;
+
     memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = &signal_handler;
+    sa.sa_handler = signal_handler;
     sa.sa_flags = 0;
     if (sigemptyset(&sa.sa_mask) == -1) {
         perror("sigemptyset");
@@ -83,33 +122,29 @@ int32_t main(void) {
         exit(EXIT_FAILURE);
     }
 
+    // ? Block all signals except SIGINT.
+    if (sigfillset(&set) == -1) {
+        perror("sigfillset");
+        exit(EXIT_FAILURE);
+    }
+    if (sigdelset(&set, SIGINT) == -1) {
+        perror("sigdelset");
+        exit(EXIT_FAILURE);
+    }
+    if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
+        perror("sigprocmask");
+        exit(EXIT_FAILURE);
+    }
+}
+
+int32_t main(void) {
+    setup_signal_handling();
+
     init_figure();
     
-    char buffer[BUFSIZ];
-    printf("Enter a positive integer number: ");
-    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-        fprintf(stderr, "Input error.\n");
-        exit(EXIT_FAILURE);
-    }
-    buffer[strcspn(buffer, "\n")] = '\0';
+    get_user_input("Enter a positive integer number: ", &fig.D);
+    final_report();
 
-    if (!to_double(buffer, &fig.D)) {
-        fprintf(stderr, "Invalid input: %s\nPlease enter a valid number.\n", buffer);
-        exit(EXIT_FAILURE);
-    }
-
-    if (fig.D <= 0) {
-        fprintf(stderr, "Invalid input: %s\nOnly positive numbers are allowed.\n", buffer);
-        exit(EXIT_FAILURE);
-    }
-
-    void (*areas[TRIANGLE + 1])(figure_t *) = { square_area, circle_area, triangle_area };
-
-    figure_type_t type = SQUARE;
-    for (uint64_t i = 0; i < FIGURE_TYPE_COUNT; ++i, ++type) {
-        get_area(&fig, type, *(areas + i));
-        printf("%s area: %.2lf\n", fig.name, fig.area);
-    }
     free_figure();
 
     return 0;

@@ -20,10 +20,17 @@ typedef struct {
 
 calc_t c;
 
-static void calc_init(void) {
+static void init_calc(void) {
     c.size = 0;
     c.vector = NULL;
     c.sum = c.average = 0.0;
+}
+
+static void calc_add_number(const int64_t number) {
+    c.size += 1;
+    c.vector = realloc(c.vector, c.size * sizeof(*(c.vector)));
+    assert(c.vector != NULL);
+    c.vector[c.size - 1] = number;
 }
 
 #define BASE 10
@@ -35,11 +42,28 @@ static bool to_int64(const char *buffer, int64_t *value) {
 }
 #undef BASE
 
-static void calc_add_number(int64_t number) {
-    c.size += 1;
-    c.vector = realloc(c.vector, c.size * sizeof(*(c.vector)));
-    assert(c.vector != NULL);
-    c.vector[c.size - 1] = number;
+static void get_user_input(const char *msg, int64_t *value) {
+    char buffer[BUFSIZ];
+
+    while (true) {
+        printf("%s", msg);
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        if (!to_int64(buffer, value)) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+        if (*value == 0) { break; }
+        if (*value < 0) {
+            fprintf(stderr, "Invalid input: %ld\nOnly positive integers are allowed.\n", *value);
+            continue;
+        }
+        calc_add_number(*value);
+    }
 }
 
 static void calc_print_vector(void) {
@@ -67,24 +91,30 @@ static void final_report(void) {
     }
 }
 
-static void calc_free(void) { free(c.vector); }
+static void free_calc(void) {
+    if (c.vector != NULL) {
+        free(c.vector);
+        c.vector = NULL;
+    }
+}
 
-static void signal_handler(int32_t sig) {
+static void signal_handler(const int32_t sig) {
     if (sig == SIGINT) {
         puts("\nSIGINT signal received.");
 
         final_report();
-        calc_free();
+        free_calc();
 
         exit(EXIT_SUCCESS);
     }
 }
 
-int32_t main(void) {
+static void setup_signal_handling(void) {
     struct sigaction sa;
-    
+    sigset_t set;
+
     memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = &signal_handler;
+    sa.sa_handler = signal_handler;
     sa.sa_flags = 0;
     if (sigemptyset(&sa.sa_mask) == -1) {
         perror("sigemptyset");
@@ -95,34 +125,31 @@ int32_t main(void) {
         exit(EXIT_FAILURE);
     }
 
-    calc_init();
-
-    char buffer[BUFSIZ];
-    while (true) {
-        printf("Enter a positive integer (0 to stop): ");
-        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-            fprintf(stderr, "Input error.\n");
-            continue;
-        }
-        buffer[strcspn(buffer, "\n")] = '\0';
-
-        int64_t number;
-        if (!to_int64(buffer, &number)) {
-            fprintf(stderr, "Invalid input: %s\nPlease enter a valid integer.\n", buffer);
-            continue;
-        }
-
-        if (number == 0) { break; }
-        if (number < 0) {
-            fprintf(stderr, "Invalid input: %s\nOnly positive integers are allowed.\n", buffer);
-            continue;
-        }
-
-        calc_add_number(number);
+    // ? Block all signals except SIGINT.
+    if (sigfillset(&set) == -1) {
+        perror("sigfillset");
+        exit(EXIT_FAILURE);
     }
+    if (sigdelset(&set, SIGINT) == -1) {
+        perror("sigdelset");
+        exit(EXIT_FAILURE);
+    }
+    if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
+        perror("sigprocmask");
+        exit(EXIT_FAILURE);
+    }
+}
+
+int32_t main(void) {
+    setup_signal_handling();
+
+    init_calc();
+
+    int64_t number;
+    get_user_input("Enter a positive integer (0 to stop): ", &number);
 
     final_report();
-    calc_free();
+    free_calc();
 
     return 0;
 }

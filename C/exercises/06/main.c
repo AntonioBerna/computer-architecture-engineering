@@ -42,20 +42,24 @@ static bool to_double(const char *buffer, double *value) {
     return !(errno == ERANGE || endptr == buffer || (*endptr && *endptr != '\n'));
 }
 
-static bool get_user_input(const char *msg, double *value) {
+static void get_user_input(const char *msg, double *value) {
     char buffer[BUFSIZ];
-    
-    printf("%s", msg);
-    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-        return false;
-    }
-    buffer[strcspn(buffer, "\n")] = '\0';
 
-    if (!to_double(buffer, value)) {
-        return false;
-    }
+    while (true) {
+        printf("%s", msg);
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+        buffer[strcspn(buffer, "\n")] = '\0';
 
-    return true;
+        if (!to_double(buffer, value)) {
+            fprintf(stderr, "Invalid input.\n");
+            continue;
+        }
+
+        break;
+    }
 }
 
 static void solve_eqn(void) {
@@ -78,23 +82,29 @@ static void solve_eqn(void) {
     }
 }
 
+static void free_eqn(void) {
+    if (eqn.msg != NULL) {
+        free(eqn.msg);
+        eqn.msg = NULL;
+    }
+}
+
 static void signal_handler(int32_t sig) {
     if (sig == SIGINT) {
         puts("\nSIGINT signal received.");
         
-        if (eqn.msg != NULL) {
-            free(eqn.msg);
-        }
-
+        free_eqn();
+        
         exit(EXIT_SUCCESS);
     }
 }
 
-int32_t main(void) {
+static void setup_signal_handling(void) {
     struct sigaction sa;
-    
+    sigset_t set;
+
     memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = &signal_handler;
+    sa.sa_handler = signal_handler;
     sa.sa_flags = 0;
     if (sigemptyset(&sa.sa_mask) == -1) {
         perror("sigemptyset");
@@ -105,19 +115,33 @@ int32_t main(void) {
         exit(EXIT_FAILURE);
     }
 
-    init_eqn();
-    if (!get_user_input("a = ", &eqn.a)) {
-        fprintf(stderr, "Invalid input.\n");
+    // ? Block all signals except SIGINT.
+    if (sigfillset(&set) == -1) {
+        perror("sigfillset");
         exit(EXIT_FAILURE);
     }
-    if (!get_user_input("b = ", &eqn.b)) {
-        fprintf(stderr, "Invalid input.\n");
+    if (sigdelset(&set, SIGINT) == -1) {
+        perror("sigdelset");
         exit(EXIT_FAILURE);
     }
-    solve_eqn();
+    if (sigprocmask(SIG_BLOCK, &set, NULL) == -1) {
+        perror("sigprocmask");
+        exit(EXIT_FAILURE);
+    }
+}
 
+int32_t main(void) {
+    setup_signal_handling();
+
+    init_eqn();
+
+    get_user_input("a = ", &eqn.a);
+    get_user_input("b = ", &eqn.b);
+
+    solve_eqn();
     printf("%s\n", eqn.msg);
-    free(eqn.msg);
+
+    free_eqn();
     
     return 0;
 }
