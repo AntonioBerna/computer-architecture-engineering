@@ -41,4 +41,4 @@ Design the logic circuit that allows you to control the values ​​of $Y1$, $Y
 
 The study of the problem, the analysis of the circuit and its minimization can be done on paper. The obtained circuit must be inserted into the file `circuit.dig`, which can be modified using the circuit editor and simulator [Digital](https://github.com/hneemann/Digital). The simulator also allows you to test the circuit locally, so you can also verify the correctness of the proposed solution locally.
 
-The inputs and outputs of the circuit are already specified in the `circuit.dig` file. **Do not** rename these terminals, otherwise the submitted homework cannot be evaluated.
+The inputs and outputs of the circuit are already specified in the `circuit.dig` file. Do not rename these terminals, otherwise the submitted homework cannot be evaluated.
