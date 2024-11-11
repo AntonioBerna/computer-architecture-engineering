@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/bin/sh
 
 max_score=8
 max_acceptable_complexity=4
