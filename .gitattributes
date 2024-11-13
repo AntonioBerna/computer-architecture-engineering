@@ -1,2 +1,4 @@
 *.dig linguist-detectable=false
 *.tm linguist-detectable=false
+*.v linguist-detectable=false
+*.vhdl linguist-detectable=false
