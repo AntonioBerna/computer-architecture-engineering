@@ -4,7 +4,7 @@ For this homework, you need to design a sequential network that can accept chara
 
 The input alphabet consists of the characters $I = \{ a, b, c, d \}$ represented with the following encodings:
 
-- $a = \langle x_1 = 0, x_0 = 0\rangle$.
+- $a = \langle x_1 = 0, x_0 = 0 \rangle$.
 - $b = \langle x_1 = 0, x_0 = 1 \rangle$.
 - $c = \langle x_1 = 1, x_0 = 1 \rangle$.
 - $d = \langle x_1 = 1, x_0 = 0 \rangle$.
