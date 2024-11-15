@@ -80,8 +80,14 @@
   <big-figure|<image|imgs/mealy.jpg|0.4par|||>|Relazione tra gli stati
   utilizzando la <with|font-shape|italic|macchina di Mealy>>
 
-  Quindi, poichè ci sono <math|7> stati, abbiamo bisogno di <math|3> bit per
-  la rappresentazione corretta degli stati (che indicheremo con
+  Quindi, poichè ci sono <math|7> stati (in realtà lo stato <math|5> e lo
+  stato <math|6> sono inutili perchè sono una ripetizione degli stati
+  <math|1> e <math|2>, tuttavia li ho lasciati perchè, avendo scelto di usare
+  solo moduli ROM, avrei avuto sempre <math|5> bit d'ingresso e <math|1> bit
+  d'uscita per ogni singolo modulo, come si vede in Fig.
+  <reference|setting-rom>, pertanto eliminando tali stati non c'è una vera e
+  propria ottimizzazione), abbiamo bisogno di <math|3> bit per la
+  rappresentazione corretta degli stati (che indicheremo con
   <math|y<rsub|2>,y<rsub|1>,y<rsub|0>>) e delle transizioni (che indicheremo
   con <math|y<rsub|2><rprime|'>,y<rsub|1><rprime|'>,y<rsub|0><rprime|'>>),
   che avviene tramite la seguente tabella:
@@ -179,8 +185,9 @@
   bisogno di <math|4> moduli ROM (<math|3> per le transizioni ed <math|1> per
   l'output) configurando ogni modulo con le seguenti impostazioni:
 
-  <big-figure|<image|imgs/settings-rom.png|0.25par|||>|Impostazioni di ogni
-  singolo modulo ROM>
+  <\big-figure|<image|imgs/settings-rom.png|0.25par|||>>
+    Impostazioni di ogni singolo modulo ROM<label|setting-rom>
+  </big-figure>
 
   dove è possibile aggiungere un <with|font-shape|italic|Label>
   personalizzato per comprendere a cosa serve il singolo modulo. Dunque
@@ -206,7 +213,7 @@
   Chiaramente trattandosi di una <with|font-shape|italic|rete sequenziale>
   avremo bisogno di un modulo <with|font-shape|italic|clock>, in comune a
   <math|4> flip-flop D, ai quali verranno collegate in input le transizioni
-  e, attravero il componente <with|font-shape|italic|tunnel>, verranno
+  e, attraverso il componente <with|font-shape|italic|tunnel>, verranno
   portate le uscite <math|Q<rsub|i>> agli stati <math|y<rsub|2>,y<rsub|1>> e
   <math|y<rsub|0>> di input. Pertanto il circuito finale è il seguente:
 
@@ -221,19 +228,20 @@
 
 <\references>
   <\collection>
-    <associate|auto-1|<tuple|1|1|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-10|<tuple|2|3|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-11|<tuple|3|3|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-12|<tuple|4|4|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-2|<tuple|1.1|1|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-3|<tuple|1|1|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-4|<tuple|2|1|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-5|<tuple|2|1|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-6|<tuple|2.1|1|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-7|<tuple|2.2|2|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-8|<tuple|1|2|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|auto-9|<tuple|3|2|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
-    <associate|truth-table|<tuple|3|2|../../../.TeXmacs/texts/scratch/no_name_17.tm>>
+    <associate|auto-1|<tuple|1|1>>
+    <associate|auto-10|<tuple|2|3>>
+    <associate|auto-11|<tuple|3|3>>
+    <associate|auto-12|<tuple|4|4>>
+    <associate|auto-2|<tuple|1.1|1>>
+    <associate|auto-3|<tuple|1|1>>
+    <associate|auto-4|<tuple|2|1>>
+    <associate|auto-5|<tuple|2|1>>
+    <associate|auto-6|<tuple|2.1|1>>
+    <associate|auto-7|<tuple|2.2|1>>
+    <associate|auto-8|<tuple|1|2>>
+    <associate|auto-9|<tuple|3|2>>
+    <associate|setting-rom|<tuple|2|3>>
+    <associate|truth-table|<tuple|3|2>>
   </collection>
 </references>
 
@@ -244,8 +252,9 @@
       stati utilizzando la <with|font-shape|<quote|italic>|macchina di
       Mealy>>|<pageref|auto-8>>
 
-      <tuple|normal|<surround|<hidden-binding|<tuple>|2>||Impostazioni di
-      ogni singolo modulo ROM>|<pageref|auto-10>>
+      <tuple|normal|<\surround|<hidden-binding|<tuple>|2>|>
+        Impostazioni di ogni singolo modulo ROM
+      </surround>|<pageref|auto-10>>
 
       <tuple|normal|<surround|<hidden-binding|<tuple>|3>||Configurazione dei
       moduli ROM della <with|font-shape|<quote|italic>|rete
