@@ -203,9 +203,9 @@
   Pertanto per utilizzare le ROM sul software Digital occorre compilare ogni
   indirizzo di memoria di ogni ROM come segue:
 
-  <big-figure|<tabular|<tformat|<cwith|1|-1|1|-1|cell-halign|c>|<cwith|1|-1|1|-1|cell-valign|c>|<table|<row|<cell|<image|imgs/rom-z.png|0.3par|||>>|<cell|>|<cell|<image|imgs/rom-y2.png|0.3par|||>>>|<row|<cell|ROM
+  <big-figure|<tabular|<tformat|<cwith|1|-1|1|-1|cell-halign|c>|<cwith|1|-1|1|-1|cell-valign|c>|<table|<row|<cell|<image|imgs/rom-z.png|0.25par|||>>|<cell|>|<cell|<image|imgs/rom-y2.png|0.25par|||>>>|<row|<cell|ROM
   per l'output <math|z>>|<cell|>|<cell|ROM per la transizione
-  <math|y<rsub|2><rprime|'>>>>|<row|<cell|>|<cell|>|<cell|>>|<row|<cell|<image|imgs/rom-y1.png|0.3par|||>>|<cell|>|<cell|<image|imgs/rom-y0.png|0.3par|||>>>|<row|<cell|ROM
+  <math|y<rsub|2><rprime|'>>>>|<row|<cell|>|<cell|>|<cell|>>|<row|<cell|<image|imgs/rom-y1.png|0.25par|||>>|<cell|>|<cell|<image|imgs/rom-y0.png|0.25par|||>>>|<row|<cell|ROM
   per la transizione <math|y<rsub|1><rprime|'>>>|<cell|>|<cell|ROM per la
   transizione <math|y<rsub|0><rprime|'>>>>>>>|Configurazione dei moduli ROM
   della <with|font-shape|italic|rete sequenziale>>
@@ -217,7 +217,7 @@
   portate le uscite <math|Q<rsub|i>> agli stati <math|y<rsub|2>,y<rsub|1>> e
   <math|y<rsub|0>> di input. Pertanto il circuito finale è il seguente:
 
-  <big-figure|<image|imgs/final-circuit.png|0.4par|||>|Circuito finale>
+  <big-figure|<image|imgs/final-circuit.png|0.35par|||>|Circuito finale>
 </body>
 
 <\initial>
@@ -231,7 +231,7 @@
     <associate|auto-1|<tuple|1|1>>
     <associate|auto-10|<tuple|2|3>>
     <associate|auto-11|<tuple|3|3>>
-    <associate|auto-12|<tuple|4|4>>
+    <associate|auto-12|<tuple|4|3>>
     <associate|auto-2|<tuple|1.1|1>>
     <associate|auto-3|<tuple|1|1>>
     <associate|auto-4|<tuple|2|1>>
