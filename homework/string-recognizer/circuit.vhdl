@@ -5,116 +5,26 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 use IEEE.NUMERIC_STD.ALL;
 
-entity DIG_ROM_z is
+entity DIG_ROM_ROM is
   port (
-    D: out std_logic;
+    D: out std_logic_vector (3 downto 0);
     A: in std_logic_vector (4 downto 0);
     sel: in std_logic );
-end DIG_ROM_z;
+end DIG_ROM_ROM;
 
-architecture Behavioral of DIG_ROM_z is
-  type mem is array ( 0 to 29) of std_logic;
+architecture Behavioral of DIG_ROM_ROM is
+  type mem is array ( 0 to 19) of std_logic_vector (3 downto 0);
   constant my_Rom : mem := (
-    '1', '1', '1', '1', '1', '1', '1', '0', '1', '1', '1', '1', '1', '1', '1', 
-    '0', '1', '1', '1', '1', '1', '1', '1', '0', '1', '1', '0', '0', '1', '1'
-    );
+    "1000", "1000", "1100", "1000", "1010", "1000", "1100", "1000", "1000", 
+    "1110", "1100", "0000", "1000", "1000", "1100", "0001", "1000", "1110", 
+    "1100", "1000");
 begin
   process (A, sel)
   begin
     if sel='0' then
-      D <= 'Z';
-    elsif A > "11101" then
-      D <= '0';
-    else
-      D <= my_rom(to_integer(unsigned(A)));
-    end if;
-  end process;
-end Behavioral;
-
-
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-use IEEE.NUMERIC_STD.ALL;
-
-entity DIG_ROM_y_2 is
-  port (
-    D: out std_logic;
-    A: in std_logic_vector (4 downto 0);
-    sel: in std_logic );
-end DIG_ROM_y_2;
-
-architecture Behavioral of DIG_ROM_y_2 is
-  type mem is array ( 0 to 27) of std_logic;
-  constant my_Rom : mem := (
-    '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '1', '0', '1', '0', '0', 
-    '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1');
-begin
-  process (A, sel)
-  begin
-    if sel='0' then
-      D <= 'Z';
-    elsif A > "11011" then
-      D <= '0';
-    else
-      D <= my_rom(to_integer(unsigned(A)));
-    end if;
-  end process;
-end Behavioral;
-
-
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-use IEEE.NUMERIC_STD.ALL;
-
-entity DIG_ROM_y_1 is
-  port (
-    D: out std_logic;
-    A: in std_logic_vector (4 downto 0);
-    sel: in std_logic );
-end DIG_ROM_y_1;
-
-architecture Behavioral of DIG_ROM_y_1 is
-  type mem is array ( 0 to 20) of std_logic;
-  constant my_Rom : mem := (
-    '0', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', 
-    '0', '0', '1', '0', '0', '1');
-begin
-  process (A, sel)
-  begin
-    if sel='0' then
-      D <= 'Z';
-    elsif A > "10100" then
-      D <= '0';
-    else
-      D <= my_rom(to_integer(unsigned(A)));
-    end if;
-  end process;
-end Behavioral;
-
-
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-use IEEE.NUMERIC_STD.ALL;
-
-entity DIG_ROM_y_0 is
-  port (
-    D: out std_logic;
-    A: in std_logic_vector (4 downto 0);
-    sel: in std_logic );
-end DIG_ROM_y_0;
-
-architecture Behavioral of DIG_ROM_y_0 is
-  type mem is array ( 0 to 20) of std_logic;
-  constant my_Rom : mem := (
-    '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '1', '0', '1', '1', '1', 
-    '0', '0', '0', '1', '0', '1');
-begin
-  process (A, sel)
-  begin
-    if sel='0' then
-      D <= 'Z';
-    elsif A > "10100" then
-      D <= '0';
+      D <= (others => 'Z');
+    elsif A > "10011" then
+      D <= (others => '0');
     else
       D <= my_rom(to_integer(unsigned(A)));
     end if;
@@ -162,58 +72,48 @@ entity main is
 end main;
 
 architecture Behavioral of main is
-  signal s0: std_logic;
-  signal y_2: std_logic;
-  signal s1: std_logic;
+  signal s0: std_logic_vector(4 downto 0);
+  signal s1: std_logic_vector(3 downto 0);
   signal y_0: std_logic;
-  signal s2: std_logic_vector(4 downto 0);
   signal y_1: std_logic;
+  signal y_2: std_logic;
+  signal s2: std_logic;
   signal s3: std_logic;
+  signal s4: std_logic;
 begin
-  s2(0) <= y_0;
-  s2(1) <= y_1;
-  s2(2) <= y_2;
-  s2(3) <= x_0;
-  s2(4) <= x_1;
-  gate0: entity work.DIG_ROM_z -- z
+  s0(0) <= x_1;
+  s0(1) <= x_0;
+  s0(2) <= y_0;
+  s0(3) <= y_1;
+  s0(4) <= y_2;
+  gate0: entity work.DIG_ROM_ROM -- ROM
     port map (
-      A => s2,
-      sel => '1',
-      D => z);
-  gate1: entity work.DIG_ROM_y_2 -- y_2'
-    port map (
-      A => s2,
-      sel => '1',
-      D => s0);
-  gate2: entity work.DIG_ROM_y_1 -- y_1'
-    port map (
-      A => s2,
-      sel => '1',
-      D => s3);
-  gate3: entity work.DIG_ROM_y_0 -- y_0'
-    port map (
-      A => s2,
+      A => s0,
       sel => '1',
       D => s1);
-  gate4: entity work.DIG_D_FF
+  s2 <= s1(0);
+  s4 <= s1(1);
+  s3 <= s1(2);
+  z <= s1(3);
+  gate1: entity work.DIG_D_FF
     generic map (
       Default => '0')
     port map (
-      D => s0,
+      D => s2,
       C => CK,
       Q => y_2);
-  gate5: entity work.DIG_D_FF
-    generic map (
-      Default => '0')
-    port map (
-      D => s1,
-      C => CK,
-      Q => y_0);
-  gate6: entity work.DIG_D_FF
+  gate2: entity work.DIG_D_FF
     generic map (
       Default => '0')
     port map (
       D => s3,
+      C => CK,
+      Q => y_0);
+  gate3: entity work.DIG_D_FF
+    generic map (
+      Default => '0')
+    port map (
+      D => s4,
       C => CK,
       Q => y_1);
 end Behavioral;
