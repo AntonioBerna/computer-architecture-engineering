@@ -41,7 +41,7 @@ transition_f transition_table[] = {
 /*
 .text
 
-transition_start:                       
+transition_start:
     pushq %rbp              // function prologue
     movq %rsp, %rbp
     movb %dil, %al          // get input char from first argument
@@ -63,7 +63,7 @@ int transition_start(char input) {
 }
 
 /*
-transition_q:                           
+transition_q:
     pushq %rbp
     movq %rsp, %rbp
     movb %dil, %al
@@ -85,7 +85,7 @@ int transition_q(char input) {
 }
 
 /*
-transition_z:                           
+transition_z:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -115,7 +115,7 @@ int transition_z(char input) {
 }
 
 /*
-transition_3:                           
+transition_3:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -139,7 +139,7 @@ int transition_3(char input) {
 }
 
 /*
-transition_2:                           
+transition_2:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -161,7 +161,7 @@ int transition_2(char input) {
 }
 
 /*
-transition_7:                           
+transition_7:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -185,7 +185,7 @@ int transition_7(char input) {
 }
 
 /*
-transition_x:                           
+transition_x:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -209,7 +209,7 @@ int transition_x(char input) {
 }
 
 /*
-transition_n:                           
+transition_n:        
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -261,7 +261,7 @@ int transition_l(char input) {
 }
 
 /*
-transition_9:                           
+transition_9:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -283,7 +283,7 @@ int transition_9(char input) {
 }
 
 /*
-transition_fail:                        
+transition_fail:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -298,7 +298,7 @@ int transition_fail(char input) {
 }
 
 /*
-main:                                   
+main:
     pushq %rbp            // function prologue
     movq %rsp, %rbp
     subq $32, %rsp        // allocate stack space
@@ -323,7 +323,7 @@ int main(int argc, char **argv) {
 	movslq -20(%rbp), %rcx        // get current index i
 	movsbl (%rax,%rcx,1), %eax    // get current char
 	cmpl $0, %eax                 // check if null terminator
-	jz .label11_6                 // if null, exit loop	
+	jz .label11_6                 // if null, exit loop
 */
 	int i = 0;
 	while (argv[1][i] != '\0') {
