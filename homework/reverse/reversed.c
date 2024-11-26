@@ -3,11 +3,12 @@
 
 .data               // data section
 	state: .long 0  // initialize 32-bit state variable to 0
+	
 	transition_table: .quad transition_start, transition_q, transition_z, transition_3,
 	                        transition_2, transition_7, transition_fail, transition_x,
 							transition_n, transition_l, transition_9, transition_fail, transition_fail
 */
-static int state = 0;
+int state = 0;
 
 typedef int (*transition_f)(char);
 int transition_start(char input);
@@ -56,7 +57,7 @@ transition_start:
 */
 int transition_start(char input) {
 	if (input != 'Q') // cmpl $81, %eax
-		return 12;    // jmp .fail
+		return 12;    // jnz .fail
 	return 1;         // movl $1, -4(%rbp)
 }
 
@@ -78,7 +79,7 @@ transition_q:
 */
 int transition_q(char input) {
 	if (input != 'z') // cmpl $122, %eax
-		return 12;    // jmp .fail
+		return 12;    // jnz .fail
 	return 2;         // movl $2, -4(%rbp)
 }
 
@@ -96,7 +97,7 @@ transition_z:
   .label2_2:
 	movsbl -5(%rbp), %eax
 	cmpl $51, %eax         // compare with '3' (ASCII 51)
-	jnz	.fail
+	jnz .fail
 	movl $3, -4(%rbp)
 	jmp	.label2_5
   .label2_5:
@@ -109,7 +110,7 @@ int transition_z(char input) {
 		return 2;     // movl $2, -4(%rbp)
 	if (input == '3') // cmpl $51, %eax
 		return 3;     // movl $3, -4(%rbp)
-	return 12;        // jmp .fail
+	return 12;        // jnz .fail
 }
 
 /*
@@ -154,7 +155,7 @@ transition_2:
 */
 int transition_2(char input) {
 	if (input != '7') // cmpl $55, %eax
-		return 12;    // jmp .fail
+		return 12;    // jnz .fail
 	return 5;         // movl $5, -4(%rbp)
 }
 
@@ -233,11 +234,11 @@ int transition_n(char input) {
 		return 8;     // movl $8, -4(%rbp)
 	if (input == 'l') // cmpl $108, %eax
 		return 9;     // movl $9, -4(%rbp)
-	return 12;        // jmp .fail
+	return 12;        // jnz .fail
 }
 
 /*
-transition_l:                           
+transition_l:
 	pushq %rbp
 	movq %rsp, %rbp
 	movb %dil, %al
@@ -254,7 +255,7 @@ transition_l:
 */
 int transition_l(char input) {
 	if (input != '9') // cmpl $57, %eax
-		return 12;    // jmp .fail
+		return 12;    // jnz .fail
 	return 10;        // movl $10, -4(%rbp)
 }
 
@@ -276,7 +277,7 @@ transition_9:
 */
 int transition_9(char input) {
 	if (input != 'l') // cmpl $108, %eax
-		return 12;    // jmp .fail
+		return 12;    // jnz .fail
 	return 9;         // movl $9, -4(%rbp)
 }
 
@@ -312,47 +313,44 @@ int main(int argc, char **argv) {
 	if (argc != 2) // cmpl $2, -8(%rbp)
 		return 1;  // movl $1, -4(%rbp)
 	
-	/*
-	.label11_2:
-		movl $0, -20(%rbp)            // initialize index i = 0
-	.label11_3:                       // loop start
-		movq -16(%rbp), %rax          // get argv
-		movq 8(%rax), %rax            // get argv[1]
-		movslq -20(%rbp), %rcx        // get current index i
-		movsbl (%rax,%rcx,1), %eax    // get current char
-		cmpl $0, %eax                 // check if null terminator
-		jz .label11_6                 // if null, exit loop	
-	*/
+/*
+  .label11_2:
+	movl $0, -20(%rbp)            // initialize index i = 0
+  .label11_3:                     // loop start
+	movq -16(%rbp), %rax          // get argv
+	movq 8(%rax), %rax            // get argv[1]
+	movslq -20(%rbp), %rcx        // get current index i
+	movsbl (%rax,%rcx,1), %eax    // get current char
+	cmpl $0, %eax                 // check if null terminator
+	jz .label11_6                 // if null, exit loop	
+*/
 	for (int i = 0; argv[1][i] != '\0'; ++i) {
-		// Bounds check for state
-        if (state < 0 || state >= sizeof(transition_table) / sizeof(transition_table[0])) 
-            return 1;
-		
-		/*
-		movq -16(%rbp), %rax
-		movq 8(%rax), %rax
-		movslq -20(%rbp), %rcx
-		movb (%rax,%rcx,1), %al
-		movb %al, -21(%rbp)
-		movl state, %eax
-		movl %eax, %ecx
-		leaq transition_table, %rax
-		movq (%rax,%rcx,8), %rax     // get transition function
-		movsbl -21(%rbp), %edi
-		callq *%rax                  // call transition function
-		movl %eax, state             // update state
-		*/
+
+/*
+	movq -16(%rbp), %rax
+	movq 8(%rax), %rax
+	movslq -20(%rbp), %rcx
+	movb (%rax,%rcx,1), %al
+	movb %al, -21(%rbp)
+	movl state, %eax
+	movl %eax, %ecx
+	leaq transition_table, %rax
+	movq (%rax,%rcx,8), %rax     // get transition function
+	movsbl -21(%rbp), %edi
+	callq *%rax                  // call transition function
+	movl %eax, state             // update state
+*/
 		state = transition_table[state](argv[1][i]);
 	}
 
-	/*
-	.label11_6:
-		cmpl $10, state    // check if final state is 10
-		jnz	.label11_8
-		movl $2, -4(%rbp)  // if state == 10, return 2
-		jmp	.label11_9
-	.label11_8:
-		movl $1, -4(%rbp)  // if state != 10, return 1
-	*/
+/*
+  .label11_6:
+	cmpl $10, state    // check if final state is 10
+	jnz	.label11_8
+	movl $2, -4(%rbp)  // if state == 10, return 2
+	jmp	.label11_9
+  .label11_8:
+	movl $1, -4(%rbp)  // if state != 10, return 1
+*/
 	return (state == 10) ? 2 : 1; // cmpl $10, state
 }
