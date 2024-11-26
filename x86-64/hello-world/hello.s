@@ -1,19 +1,15 @@
-.data
-msg:
-    .ascii "Hello, world!\n"
-    len = . - msg
+.section .data
+msg: .asciz "Hello, World!\n"
 
-.text
-.globl _start
+.section .text
+.global main
 
-_start:
-    mov $1, %rax        # syscall number for sys_write
-    mov $1, %rdi        # file descriptor 1 (stdout)
-    mov $msg, %rsi      # pointer to the message
-    mov $len, %rdx      # message length
-    syscall             # make the system call
+main:
+    mov $1, %rax
+    mov $1, %rdi
+    lea msg(%rip), %rsi
+    mov $14, %rdx
+    syscall
 
-    mov $60, %rax       # syscall number for sys_exit
-    xor %rdi, %rdi      # return 0 status
-    syscall             # make the system call
-
+    xor %rax, %rax
+    ret
