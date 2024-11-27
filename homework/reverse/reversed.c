@@ -58,8 +58,8 @@ transition_start:
 */
 int transition_start(char input) {
 	if (input == 'Q') // cmpl $81, %eax
-		return 1;    // movl $1, -4(%rbp)
-	return 12;         // jnz .fail
+		return 1;     // movl $1, -4(%rbp)
+	return 12;        // jnz .fail
 }
 
 /*
