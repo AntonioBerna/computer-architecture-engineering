@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fsm>
+  <states>
+    <state>
+      <values></values>
+      <position x="-60.0" y="60.0"/>
+      <number>0</number>
+      <name>Floor T</name>
+      <radius>70</radius>
+      <isInitial>true</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values></values>
+      <position x="360.0" y="60.0"/>
+      <number>1</number>
+      <name>Floor 1</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values></values>
+      <position x="780.0" y="60.0"/>
+      <number>2</number>
+      <name>Floor 2</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values></values>
+      <position x="1200.0" y="60.0"/>
+      <number>3</number>
+      <name>Floor 3</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values></values>
+      <position x="1620.0" y="60.0"/>
+      <number>4</number>
+      <name>Floor VIP</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+  </states>
+  <transitions>
+    <transition>
+      <values></values>
+      <position x="150.0" y="-41.0"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>DIR_UP=1 DIR_DOWN=0 CK_2=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1410.0" y="175.0"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>DIR_UP=0 DIR_DOWN=1 CK_2=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="570.0" y="-71.779175"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition>DIR_UP=1 DIR_DOWN=0 CK_2=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="990.0" y="-70.621765"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>DIR_UP=1 DIR_DOWN=0 CK_2=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1410.0" y="-67.0"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[5]"/>
+      <condition>DIR_UP=1 DIR_DOWN=0 CK_2=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="990.0" y="174.0"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition>DIR_UP=0 DIR_DOWN=1 CK_2=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="570.0" y="175.94911"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>DIR_UP=0 DIR_DOWN=1 CK_2=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="150.0" y="164.34978"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state"/>
+      <condition>DIR_UP=0 DIR_DOWN=1 CK_2=1</condition>
+    </transition>
+  </transitions>
+</fsm>

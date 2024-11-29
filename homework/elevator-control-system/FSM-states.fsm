@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fsm>
+  <states>
+    <state>
+      <values></values>
+      <position x="-480.0" y="-360.0"/>
+      <number>0</number>
+      <name>WAIT</name>
+      <radius>70</radius>
+      <isInitial>true</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values>DIR_UP=1</values>
+      <position x="780.0" y="-240.0"/>
+      <number>1</number>
+      <name>UP</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values>DIR_DOWN=1</values>
+      <position x="780.0" y="1080.0"/>
+      <number>2</number>
+      <name>DOWN</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values></values>
+      <position x="2460.0" y="60.0"/>
+      <number>4</number>
+      <name>STOP</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+    <state>
+      <values></values>
+      <position x="-1920.0" y="420.0"/>
+      <number>3</number>
+      <name>OPEN</name>
+      <radius>70</radius>
+      <isInitial>false</isInitial>
+      <initialAngle>12</initialAngle>
+      <defaultDC>false</defaultDC>
+    </state>
+  </states>
+  <transitions>
+    <transition>
+      <values></values>
+      <position x="157.18068" y="-375.39716"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=1 DOWN=0 STOP=0 TIMEOUT=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="333.38348" y="199.53943"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition>UP=0 DOWN=1 STOP=0 TIMEOUT=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1406.3275" y="218.06885"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=0 DOWN=0 STOP=1 CK_2=1 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-628.8897" y="990.91254"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition>UP=0 DOWN=1 STOP=0 TIMEOUT=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="369.05487" y="1445.1667"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[5]"/>
+      <condition>UP=0 DOWN=0 STOP=1 TIMEOUT=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="373.44165" y="1498.5394"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[5]"/>
+      <condition>UP=1 DOWN=0 STOP=1 TIMEOUT=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="376.78326" y="1539.1959"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[5]"/>
+      <condition>UP=0 DOWN=1 STOP=1 TIMEOUT=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1669.0544" y="-364.70456"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=1 DOWN=0 STOP=1 TIMEOUT=0 CK_2=1 R_VIP=0 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-525.9385" y="270.25165"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=1 DOWN=0 STOP=0 TIMEOUT=1 R_VIP=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1677.3981" y="-411.42896"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=0 DOWN=0 STOP=1 CK_2=1 R_VIP=1 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1448.3855" y="287.34082"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=0 DOWN=1 STOP=1 CK_2=1 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-1305.577" y="-164.91139"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state"/>
+      <condition>UP=0 DOWN=0 STOP=0 TIMEOUT=1 CK_2=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="782.0" y="-456.0"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=1 DOWN=0 STOP=0 TIMEOUT=0 CK_2=1 R_VIP=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1687.6019" y="-468.57104"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=0 DOWN=1 STOP=1 CK_2=1  R_VIP=1 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-514.9846" y="315.0629"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=1 DOWN=1 STOP=0 R_VIP=1 TIMEOUT=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1470.0577" y="323.03635"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=1 DOWN=0 STOP=1 CK_2=1 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1697.9481" y="-526.5094"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=0 DOWN=0 STOP=1 CK_2=1 R_VIP=0 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1659.623" y="-311.88873"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=1 DOWN=1 STOP=1 CK_2=1 R_VIP=0 DESTINATION=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="380.48395" y="1584.2208"/>
+      <fromState reference="../../../states/state[4]"/>
+      <toState reference="../../../states/state[5]"/>
+      <condition>UP=1 DOWN=1 STOP=1 TIMEOUT=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-535.15985" y="232.52795"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=1 DOWN=1 STOP=1 TIMEOUT=1 R_VIP=0 WAS_DOWN=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-543.86346" y="196.92224"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=0 DOWN=1 STOP=1 TIMEOUT=1 R_VIP=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1708.7825" y="-587.1817"/>
+      <fromState reference="../../../states/state[2]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=0 DOWN=1 STOP=1 TIMEOUT=0 DESTINATION=1 R_VIP=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-554.50464" y="153.39003"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=1 DOWN=1 STOP=0 TIMEOUT=1 R_VIP=0 WAS_DOWN=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1428.6428" y="254.82349"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=1 DOWN=1 STOP=1 CK_2=1 DESTINATION=1 R_VIP=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-505.99908" y="351.82193"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[2]"/>
+      <condition>UP=1 DOWN=0 STOP=0 TIMEOUT=1 R_VIP=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-1147.302" y="127.288574"/>
+      <fromState reference="../../../states/state"/>
+      <toState reference="../../../states/state[5]"/>
+      <condition>UP=0 DOWN=0 STOP=1 TIMEOUT=0 CK_2=0</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="-645.77875" y="1060.0039"/>
+      <fromState reference="../../../states/state[5]"/>
+      <toState reference="../../../states/state[3]"/>
+      <condition>UP=1 DOWN=1 STOP=0 TIMEOUT=1 R_VIP=0  WAS_DOWN=1</condition>
+    </transition>
+    <transition>
+      <values></values>
+      <position x="1382.083" y="178.13672"/>
+      <fromState reference="../../../states/state[3]"/>
+      <toState reference="../../../states/state[4]"/>
+      <condition>UP=1 DOWN=1 STOP=1 CK_2=1 R_VIP=1 WAS_DOWN=1</condition>
+    </transition>
+  </transitions>
+</fsm>
