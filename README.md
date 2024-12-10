@@ -10,4 +10,11 @@
 
 Inside the `C/` directory there are no build files, such as `Makefile`, `CMakeLists.txt` or for the more nostalgic `build.sh`, this is because I recently created the `roma` software to compile projects anywhere on your computer.
 
-For more information about the `roma` software and how to install it click [here](https://github.com/AntonioBerna/roma).
+## tools
+
+- [Karnaugh Map Solver](https://www.charlie-coleman.com/experiments/kmap/)
+- [roma](https://github.com/AntonioBerna/roma)
+- [cppcheck](https://cppcheck.sourceforge.io/)
+- [Digital](https://github.com/hneemann/Digital)
+- [z64sim](https://github.com/alessandropellegrini/z64sim)
+- [texmacs](https://www.texmacs.org/tmweb/home/welcome.en.html)
