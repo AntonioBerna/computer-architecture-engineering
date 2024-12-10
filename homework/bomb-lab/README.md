@@ -1,92 +1,89 @@
-# :bomb: Disinnescare una Bomba Binaria
+# :bomb: Defusing a Binary Bomb
 
-## Introduzione
+## Introduction
 
-Il malvagio _Dr. Male_ ha piantato una sfilza di "bombe binarie" sulle macchine del nostro dipartimento. Una bomba binaria è un programma che consiste in una sequenza di fasi. Ciascuna fase richiede l'inserimento su `stdin` di una certa stringa. Se viene inserita la stringa corretta, allora la fase viene
-_disinnescata_ e la bomba avanza alla fase successiva. Altrimenti, la bomba _esplode_ stampando `BOOM!!!` e successivamente terminando.    
-La bomba è disinnescata quando tutte le fasi sono disinnescate.
+The evil _Dr. Male_ planted a slew of "binary bombs" on our department's machines. A binary bomb is a program that consists of a sequence of phases. Each step requires a certain string to be inserted into `stdin`. If the correct string is entered, then the phase is _defused_ and the bomb advances to the next phase. Otherwise, the bomb _explodes_ by printing `BOOM!!!` and then terminating.    
+The bomb is defused when all phases are defused.
 
-Sono state installate troppe bombe e noi da soli non riusciamo a gestirle. Per questo motivo diamo una bomba da disinnescare a ciascuno studente. La tua missione, che non puoi rifiutare, è quella di disinnescare la tua bomba prima della data in cui essa scadrà. Buona fortuna, e benvenuto nella _bomb squad_!
+Too many bombs have been planted and we alone cannot handle them. For this reason we give each student a bomb to defuse. Your mission, which you cannot refuse, is to defuse your bomb before the date on which it expires. Good luck, and welcome to the _bomb squad_!
 
 ![](.github/artwork/bomb.png)
 
-## Fase 1: Scarica la tua bomba
+## Step 1: Unload your bomb
 
-Per ottenere la tua bomba, _devi effettuare un commit in questo repository_. Modifica il file `get_bomb.txt` inserendo la tua matricola. Verrà attivata una Action su GitHub che aggiungerà al repository un archivio chiamato `bomb.zip`. Viene fornita una versione per Linux, Windows e MacOS: puoi usare quella che preferisci, sono equivalenti.
+To get your bomb, you _must commit to this repository_. Edit the `get_bomb.txt` file by inserting your serial number. An Action will be activated on GitHub which will add an archive called `bomb.zip` to the repository. A version is provided for Linux, Windows and MacOS: you can use whichever you prefer, they are equivalent.
 
-Se si verifica un errore nel recupero della bomba, verrà inserito nel file `ERRORE.TXT` una descrizione dell'errore.
+If an error occurs while recovering the bomb, a description of the error will be placed in the `ERROR.txt` file.
 
-**Attenzione**: la bomba è per processori x86, se hai quindi un Mac con M1 o M2, devi entrare in un terminale configurato per x86:
+> [!WARNING]
+> The bomb is for x86 processors, so if you have a Mac with M1 or M2, you need to enter a terminal configured for x86:
+>
+>    ```bash
+>    env /usr/bin/arch -x86_64 /bin/zsh --login
+>    ```
+> In this environment the bomb has not been tested, therefore its functioning is not guaranteed.
+
+## Phase 2: Defuse the bomb (and get bonus points)
+
+Your job for this task is to defuse your bomb. The computer on which
+execute the bomb must be connected to the Internet, otherwise the professor will not be able to evaluate
+your solution and award you bonus points. Pay attention because we have been 
+inform yourself that Dr. Evil is truly evil and has inserted some devices into the bomb
+who notice if the bomb has been tampered with.
+
+Despite this caveat, you can really do whatever you want with your bomb. Just remember
+that this will be evaluated based on what we receive, not on what you tell us you have
+done on your computer. In other words: at the end of the task, the inputs you entered to defuse the various phases will be verified.
+
+You can use various tools to defuse your bomb. Read the _tips_ section for tips and ideas.
+
+Each time the bomb explodes 2 points are deducted from the score. Each defused phase gives 10 points. Then there are additional points hidden inside the bomb that you can try to find.
+
+The stages become progressively more difficult, although the experience gained in the previous stages should still make the later stages easier. The last stage is still challenging even for the best, so try not to leave it to the last minute.
+
+The bomb ignores blank lines in input. If you run the bomb with a command line argument, for example:
 
 ```bash
-env /usr/bin/arch -x86_64 /bin/zsh --login
+./bomb solution.txt
 ```
 
-In questo ambiente la bomba non è stata testata, quindi non è garantito il suo funzionamento.
+it will read the lines from the `solution.txt` file up to `EOF` (end of file) and then read from `stdin`. In a moment of weakness, Dr. Male introduced this feature, so you won't need to rewrite the solutions to the stages you've already defused every time.
 
-## Fase 2: Disinnesca la bomba (e ottieni punti bonus)
+To avoid accidentally detonating the bomb, you will have to learn to move through the disassembled code step by step and make extensive use of breakpoints. You will also need to learn to inspect the state of registers and memory. One of the side effects of this homework is that you will become quite good at using the debugger. It's a skill that will come in quite handy when you develop code for this course and throughout your career.
 
-Il tuo compito per questo compito è quello di disinnescare la tua bomba. Il computer su cui
-esegui la bomba deve essere connesso ad Internet, altrimenti il professore non potrà valutare
-la tua soluzione ed assegnarti i punti bonus. Fai attenzione perché siamo stati 
-informati che il Dr. Male è veramente malvagio ed ha inserito nella bomba alcuni dispositivi
-che si accorgono se la bomba è stata manomessa.
+## Logistics
 
-Nonostante questo avvertimento, puoi fare davvero quello che vuoi con la tua bomba. Ricorda solo
-che questa verrà valutata in base a quello che riceviamo, non a quello che ci racconterai di aver
-fatto sul tuo computer. In altre parole: al termine del compito, verranno verificati gli input che hai inserito per disinnescare le varie fasi.
+This homework is an individual project. The delivery is electronic and only the ranking and what we receive on our servers are valid for the bonus points. The professor reserves the right not to award bonus points at his complete discretion when correcting your solution. Any clarifications and corrections will be announced on the course noticeboard on Teams.
 
-Puoi usare vari strumenti per disinnescare la tua bomba. Leggi la sezione _suggerimenti_ per dei consigli e delle idee.
+## Delivery
 
-Ogni volta che la bomba esplode vengono tolti 2 punti dal punteggio. Ogni fase disinnescata dà 10 punti. Ci sono poi dei punti aggiuntivi nascosti all'interno della bomba che potete provare a trovare.
+There is no explicit delivery. The bomb will continue to update your progress as you work on it. Upon expiration, the bomb will simply stop functioning properly.
 
-Le fasi diventano progressivamente più difficili, anche se l'esperienza accumulata nelle fasi precedenti dovrebbe comunque rendere le fasi successive più semplici. L'ultima fase è comunque sfidante anche per i migliori, quindi cerca di non ridurti all'ultimo minuto.
+You can track your progress and that of other students by going to the [rankings] page (https://bombs.alessandropellegrini.it/2425). This page updates in real time to show the status of all bombs.
 
-La bomba ignora le linee vuote in input. Se esegui la bomba con un argomento a linea di comando, ad esempio:
+## Tips (read carefully!)
 
-```bash
-./bomba soluzione.txt
-```
+There are various ways to defuse your bomb. You can examine the assembly code in detail without ever running it to understand exactly how it behaves. This technique is very useful, but it is not always easy. You can also run the bomb inside a debugger, watching what it does step by step, using the information you gather to defuse it. This is probably the quickest technique.
 
-essa leggerà le linee dal file `soluzione.txt` fino a `EOF` (end of file) e poi passerà a leggere da `stdin`. In un momento di debolezza, il Dr. Male ha introdotto questa funzionalità, quindi non avrai bisogno di riscrivere ogni volta le soluzioni alle fasi che hai già disinnescato.
+We ask you, however, to avoid adopting a _brute force attack_ technique: you could write a program that tests all possibilities to find the right solution for each stage. However, this approach is not good for more than one reason:
 
-Per evitare di far detonare accidentalmente la bomba, dovrai imparare a muoverti passo passo nel codice disassemblato e ad utilizzare in maniera estensiva i breakpoint. Dovrai anche imparare ad ispezionare lo stato dei registri e della memoria. Uno degli effetti collaterali di questo homework è che diventerai piuttosto bravo ad usare il debugger. È un'abilità che ti tornerà piuttosto utile quando dovrai sviluppare codice per questo corso ed in tutta la tua carriera.
+- Every time the bomb explodes, you lose two points. The probability of finishing last is 100%.
 
-## Logistica
+- You don't know how long the strings to provide as input are, nor do you know which characters they are made up of. Even if you made the (_incorrect_) assumption that the strings are at most 80 characters long and contain only lowercase letters, you would have to try $26^{80}$ combinations for each step. Even with a modern computer, you wouldn't finish before the delivery date.
 
-Questo homework è un progetto individuale. La consegna è elettronica e per i punti bonus vale soltanto la graduatoria e quello che riceviamo sui nostri server. Il professore si riserva il diritto di non assegnare i punti bonus a sua completa discrezione durante la correzione della tua soluzione. Eventuali chiarimenti e correzioni verranno annunciati sulla bacheca del corso su Teams.
+- As you interact with the bomb, it contacts our servers to update the ranking in real time. Even if Dr. Male was foresighted and implemented a form of request throttling, you could easily saturate the server's bandwidth, creating a disruption to the entire class.
 
-## Consegna
+There are various tools that are designed to help you understand how a program works and what's wrong when it doesn't work. Below is a list of some tools you may find useful for bomb analysis, with guidance on how to use them. Many of them are available for all operating systems, you just need to find them.
 
-Non c'è alcuna consegna esplicita. La bomba continuerà ad aggiornare i tuoi progressi mentre ci lavori. Alla scadenza, la bomba smetterà semplicemente di funzionare correttamente.
+- `gdb`/`lldb`: these are command line debuggers, available on virtually any platform. You can move through the program line by line, examine the memory and registers, look at both the source code and the assembly code (unfortunately Dr. Male didn't leave us the sources...), set breakpoints, set watchpoints in memory, and even write scripts in Python.
 
-Puoi tenere traccia dei tuoi progressi e di quelli degli altri studenti andando alla pagina della [classifica](https://bombs.alessandropellegrini.it/2425).
-Questa pagina si aggiorna in tempo reale per mostrare lo stato di tutte le bombe.
+- `objdump -t`: the `objdump` command allows you to extract various information from a compiled binary. Using it with the `-t` flag will print the symbol table. The symbol table contains the names of all functions and all global variables present in the bomb, the names of all functions that the bomb calls, as well as their addresses. You can find out something by looking at the function names!
 
-## Suggerimenti (leggi bene!)
+- `objdump -d`: with this flag the command disassembles the bomb. You can also watch individual features. Reading the assembly code can help you understand how the bomb works. While `objdump -d` will give you a lot of information, it can't tell you the whole story like `gdb`. In fact, many "magical" things happen after a program has been started, because between the _program_ and the _process_ there is a lot of complex work that the operating system and the standard library do in concert. You'll discover all this in future courses, but the effect is that in some cases a call to `scanf` can become something cryptic like:
+    ```
+    8048c36:  e8 99 fc ff ff  call   80488d4 <_init+0x1a0> 
+    ```
 
-Ci sono vari modi per disinnescare la tua bomba. Puoi esaminare il codice assembly nei dettagli senza mai eseguirla per capire esattamente come si comporta. Questa tecnica è molto utile, ma non è sempre facile. Puoi anche eseguire la bomba all'interno di un debugger, osservando cosa fa passo passo, usando le informazioni che raccogli per disinnescarla. Probabilmente questa è la tecnica più rapida.
+- `strings`: this tool shows all the printable strings that are present in the bomb.
 
-Ti chiediamo, tuttavia, di evitare di adottare una tecnica di _attacco a forza bruta_: potresti scrivere un programma che testi tutte le possibilità per trovare la soluzione giusta per ogni fase. Questo approccio però non va bene per più di un motivo:
-
-* Ogni volta che la bomba scoppia, perdi due punti. La probabilità di arrivare ultimo è del 100%.
-
-* Non sai quanto sono lunghe le stringhe da fornire in input, né sai da quali caratteri sono composte. Anche se facessi l'ipotesi (_sbagliata_) che le stringhe sono lunghe al più 80 caratteri e contengono solo lettere minuscole, dovresti provare $26^{80}$ combinazioni per ciascuna fase. Anche con un computer moderno, non finiresti prima della data di consegna.
-
-* Mentre interagisci con la bomba, questa contatta i nostri server per aggiornare la classifica in tempo reale. Anche se il Dr. Male è stato previdente ed ha implementato una forma di throttling delle richieste, potresti facilmente saturare la banda del server, creando un disservizio a tutta la classe.
-
-Ci sono vari strumenti che sono stati progettati per aiutarti a capire come funziona un programma e cosa c'è che non va quando non funziona. Qui di seguito c'è un elenco di alcuni strumenti che potresti trovare utili per analizzare la bomba, con delle indicazioni su come utilizzarli. Molti di questi sono disponibili per tutti i sistemi operativi, devi solo trovarli.
-
-* `gdb`/`lldb`: si tratta di debugger a riga di comando, disponibili praticamente su qualsiasi piattaforma. Puoi spostarti all'interno del programma riga per riga, esaminare la memoria ed i registri, osservare sia il codice sorgente sia il codice assembly (purtroppo il Dr. Male non ci ha lasciato i sorgenti...), impostare breakpoint, impostare watchpoint in memoria, e addirittura scrivere script in python.
-
-* `objdump -t`: il comando `objdump` consente di estrarre varie informazioni da un binario compilato. Utilizzandolo con il flag `-t` esso stamperà la tabella dei simboli. La tabella dei simboli contiene i nomi di tutte le funzioni e di tutte le variabili globali presenti nella bomba, i nomi di tutte le funzioni che la bomba chiama, così come i loro indirizzi. Puoi scoprire qualcosa guardando i nomi delle funzioni!
-
-* `objdump -d`: con questo flag il comando disassembla la bomba. Puoi guardare anche singole funzioni. Leggere il codice assembly ti può far capire come funziona la bomba.    
-Anche se `objdump -d` ti darà un sacco di informazioni, non è in grado di raccontarti tutta la storia come `gdb`. Infatti, molte succedono cose "magiche" dopo che un programma è stato avviato, perché tra il _programma_ ed il _processo_ c'è un gran lavoro complesso che fanno di concerto il sistema operativo e la libreria standard. Tutto questo lo scoprirete nei corsi futuri, ma l'effetto è che in alcuni casi una chiamata a `scanf` può diventare qualcosa di criptico come:
-```
-8048c36:  e8 99 fc ff ff  call   80488d4 <_init+0x1a0> 
-```
-
-* `strings`: questo strumento mostra tutte le stringhe stampabili che sono presenti nella bomba.
-
-Sei in cerca di uno strumento particolare? Vuoi sapere come utilizzare al meglio quelli che sono stati descritti? È il momento di leggere la documentazione! Non dimenticarti mai di comandi come `apropos`, `man` o `info`: sono tuoi amici e possono fornirti molte informazioni ben oltre le semplici chiamate di libreria o i programmi a linea di comando. Ad esempio, `man ascii` ti dà anche informazioni sulle codifiche tipiche usate dalle stringhe in C. `apropos gdb` ti darà più informazioni di quante tu ne possa gestire su GDB. `info gas` ti fornirà più di quanto tu abbia mai voluto sapere sull'assemblatore GNU. Inoltre, anche il web può essere un tesoro di informazioni.  Se ti trovi in difficoltà, non esitare a chiedere aiuto al tuo professore, consapevole comunque che anche lui è alle prese con delle bombe da disinnescare e potrebbe non essere in grado di darti consigli utili.
+Are you looking for a particular instrument? Do you want to know how to best use the ones that have been described? It's time to read the documentation! Never forget about commands like `apropos`, `man` or `info`: they are your friends and can provide you with a lot of information far beyond simple library calls or command line programs. For example, `man ascii` also gives you information about typical encodings used by strings in C. `apropos gdb` will give you more information than you can handle about GDB. `info gas` will give you more than you ever wanted to know about the GNU assembler. Furthermore, the web can also be a treasure trove of information.  If you find yourself in difficulty, do not hesitate to ask your professor for help, aware however that he too is dealing with bombs to defuse and may not be able to give you useful advice.
