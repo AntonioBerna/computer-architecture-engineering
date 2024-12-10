@@ -1,0 +1,6 @@
+La semplicita` non precede la complessita`, ma ne consegue.
+Se qualcuno dice: "Voglio un linguaggio di programmazione in cui devo solo dire cio` che voglio," dagli un lecca-lecca.
+7 41
+Poi c'e` il processore a 1 bit che ha due istruzioni: nop e halt. --DrMale
+0617536
+8 0 3
