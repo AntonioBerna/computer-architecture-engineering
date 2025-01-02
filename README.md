@@ -1,4 +1,14 @@
+<p align="center">
+    <img src=".github/imgs/computer-architecture-engineering-logo.png" width="400">
+    <br>
+    <strong>Computer Architecture Engineering</strong>
+</p>
+
 # computer-architecture-engineering
+
+![GitHub License](https://img.shields.io/github/license/AntonioBerna/computer-architecture-engineering)
+![GitHub Created At](https://img.shields.io/github/created-at/antonioberna/computer-architecture-engineering)
+![GitHub repo size](https://img.shields.io/github/repo-size/antonioberna/computer-architecture-engineering)
 
 > [!WARNING]
 > This repository is unfinished. Keep your expectations low.
