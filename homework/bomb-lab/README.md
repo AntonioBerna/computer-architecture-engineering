@@ -59,7 +59,7 @@ This homework is an individual project. The delivery is electronic and only the 
 
 There is no explicit delivery. The bomb will continue to update your progress as you work on it. Upon expiration, the bomb will simply stop functioning properly.
 
-You can track your progress and that of other students by going to the [rankings] page (https://bombs.alessandropellegrini.it/2425). This page updates in real time to show the status of all bombs.
+You can track your progress and that of other students by going to the [rankings](https://bombs.alessandropellegrini.it/2425) page. This page updates in real time to show the status of all bombs.
 
 ## Tips (read carefully!)
 
