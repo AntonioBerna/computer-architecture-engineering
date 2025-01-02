@@ -27,5 +27,5 @@ Inside the `C/` directory there are no build files, such as `Makefile`, `CMakeLi
 - [cppcheck](https://cppcheck.sourceforge.io/)
 - [Digital](https://github.com/hneemann/Digital)
 - [z64sim](https://github.com/alessandropellegrini/z64sim)
-- [texmacs](https://www.texmacs.org/tmweb/home/welcome.en.html)
+- [TeXmacs](https://www.texmacs.org/tmweb/home/welcome.en.html)
 - [Computer Science from the Bottom Up](https://www.bottomupcs.com/index.html)
