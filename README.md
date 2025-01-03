@@ -1,5 +1,5 @@
 <p align="center">
-    <img src=".github/imgs/computer-architecture-engineering-logo.png" width="400">
+    <img src=".github/imgs/computer-architecture-engineering-logo.png" width="500">
     <br>
     <strong>Computer Architecture Engineering</strong>
 </p>
