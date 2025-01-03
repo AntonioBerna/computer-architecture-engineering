@@ -1,0 +1,1051 @@
+\documentclass[a4paper,12pt]{report}  % Document type, paper size, and font size
+
+\usepackage[utf8]{inputenc}  % Character encoding
+\usepackage{amsmath}         % Package for mathematics
+\usepackage{amsfonts}        % Package for math fonts
+\usepackage{amssymb}         % Package for math symbols
+\usepackage{graphicx}        % Package for inserting images
+\usepackage{geometry}        % Package to manage page margins
+\usepackage{fontspec}        % Package for custom fonts
+\usepackage{hyperref}        % Package for hyperlinks
+\usepackage{xcolor}          % Package for colors
+\usepackage{listings}        % Package for code listings
+\usepackage{tcolorbox}
+
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}  % Set page margins
+
+% \setmainfont{JetBrains Mono}  % Set the main font to JetBrains Mono
+
+% Definizione colori moderni
+\definecolor{backcolour}{RGB}{248, 248, 248}     % Sfondo leggermente grigio
+\definecolor{codegreen}{RGB}{72, 168, 96}        % Verde più soft per i commenti
+\definecolor{codepurple}{RGB}{156, 39, 176}      % Viola più moderno
+\definecolor{codered}{RGB}{219, 68, 55}          % Rosso Google-style
+\definecolor{codeblue}{RGB}{66, 133, 244}        % Blu Google-style
+\definecolor{codeorange}{RGB}{255, 111, 0}       % Arancione vivace
+\definecolor{numbercolor}{RGB}{102, 102, 102}    % Grigio per i numeri di riga
+\definecolor{definecolor}{RGB}{255, 128, 0}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    stringstyle=\color{codered},
+    basicstyle=\fontspec{JetBrains Mono}\scriptsize,
+    numberstyle=\fontspec{JetBrains Mono}\scriptsize\color{numbercolor},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=8pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=true,
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{backcolour!70},
+    xleftmargin=2.5em,
+    framexleftmargin=2em,
+    literate={*}{*}{1},
+}
+
+% Apply the style
+\lstset{style=mystyle}
+
+% New command for inline code with background color
+\newcommand{\lstinlinebg}[1]{\colorbox{backcolour}{\lstinline|#1|}}
+
+% New command for inline code in italics with background color
+\newcommand{\lstinlinebgit}[1]{\colorbox{backcolour}{\textit{\lstinline|#1|}}}
+
+% New command for inline code in bold with background color
+\newcommand{\lstinlinebgbf}[1]{\colorbox{backcolour}{\textbf{\lstinline|#1|}}}
+
+% Set hyperlink color and background color for the table of contents
+\hypersetup{
+    colorlinks=true,           % Enable color links
+    linkcolor=blue,            % Link color
+    filecolor=magenta,         % Link to files color
+    urlcolor=blue,             % URL color
+    pdfcreator={LaTeX},        % PDF creator
+    pdfproducer={LaTeX},       % PDF producer
+}
+
+\title{Bomb Lab}            % Title of the document
+\author{Antonio Bernardini} % Author's name
+\date{\today}               % Date (optional)
+
+\begin{document}
+
+% First page with title, author, and date
+\maketitle  
+
+\newpage  % Start a new page for Table of Contents
+
+% Second page with Table of Contents
+\tableofcontents
+
+\newpage  % Start a new page for the content
+
+% Homework chapter
+\chapter{Homework}
+
+This is the homework section where you can add the content related to the homework.
+
+\section{Introduction}
+The evil \textit{Dr. Evil} planted a slew of \textquotedblleft binary bombs\textquotedblright\ on our department's machines.
+A binary bomb is a program that consists of a sequence of phases.
+Each step requires a certain string to be inserted into \lstinlinebg{stdin}.
+If the correct string is entered, then the phase is \textit{defused} and the bomb advances to the next phase.
+Otherwise, the bomb \textit{explodes} by printing \lstinlinebg{BOOM!!!} and then terminating.
+The bomb is defused when all phases are defused.
+
+Too many bombs have been planted and we alone cannot handle them.
+For this reason we give each student a bomb to defuse.
+Your mission, which you cannot refuse, is to defuse your bomb before the date on which it expires.
+Good luck, and welcome to the \textit{bomb squad}!
+
+\section{Step 1: Unload your bomb}
+To get your bomb, you \textit{must commit to this repository}.
+Edit the \lstinlinebg{get_bomb.txt} file by inserting your serial number.
+An Action will be activated on GitHub which will add an archive called \lstinlinebg{bomb.zip} to the repository.
+A version is provided for Linux, Windows and MacOS: you can use whichever you prefer, they are equivalent.
+If an error occurs while recovering the bomb, a description of the error will be placed in the \lstinlinebg{ERROR.txt} file.
+\begin{tcolorbox}[
+    colback=yellow!10,
+    colframe=yellow!50!black,
+    title={\textbf{WARNING}},
+    fonttitle=\bfseries
+]
+The bomb is for \lstinlinebg{x86_64} processors, so if you have a Mac with \lstinlinebg{M1} or \lstinlinebg{M2}, you need to enter a terminal configured for \lstinlinebg{x86_64}:
+\begin{lstlisting}[numbers=none]
+$ env /usr/bin/arch -x86_64 /bin/zsh --login
+\end{lstlisting}
+In this environment the bomb has not been tested, therefore its functioning is not guaranteed.
+\end{tcolorbox}
+
+\section{Step 2: Defuse the bomb (and get bonus points)}
+Your job for this task is to defuse your bomb. The computer on which
+execute the bomb must be connected to the Internet, otherwise the professor will not be able to evaluate
+your solution and award you bonus points. Pay attention because we have been 
+inform yourself that Dr. Evil is truly evil and has inserted some devices into the bomb
+who notice if the bomb has been tampered with.
+Despite this caveat, you can really do whatever you want with your bomb. Just remember
+that this will be evaluated based on what we receive, not on what you tell us you have
+done on your computer. In other words: at the end of the task, the inputs you entered to defuse the various phases will be verified.
+You can use various tools to defuse your bomb. Read the section \ref{homework:tips} for tips and ideas.
+Each time the bomb explodes 2 points are deducted from the score. Each defused phase gives 10 points.
+Then there are additional points hidden inside the bomb that you can try to find.
+The stages become progressively more difficult, although the experience gained in the previous stages should still make the later stages easier.
+The last stage is still challenging even for the best, so try not to leave it to the last minute.
+The bomb ignores blank lines in input. If you run the bomb with a command line argument, for example:
+\begin{lstlisting}[language=bash,numbers=none]
+$ ./bomb solution.txt
+\end{lstlisting}
+it will read the lines from the \lstinlinebg{solution.txt} file up to \lstinlinebg{EOF} (end of file) and then read from \lstinlinebg{stdin}.
+In a moment of weakness, Dr. Evil introduced this feature, so you won't need to rewrite the solutions to the stages you've already defused every time.
+To avoid accidentally detonating the bomb, you will have to learn to move through the disassembled code step by step and make extensive use of breakpoints.
+You will also need to learn to inspect the state of registers and memory. One of the side effects of this homework is that you will become quite good at using the debugger.
+It's a skill that will come in quite handy when you develop code for this course and throughout your career.
+
+\section{Logistics}
+This homework is an individual project.
+The delivery is electronic and only the ranking and what we receive on our servers are valid for the bonus points.
+The professor reserves the right not to award bonus points at his complete discretion when correcting your solution.
+Any clarifications and corrections will be announced on the course noticeboard on Teams.
+
+\section{Delivery}
+There is no explicit delivery.
+The bomb will continue to update your progress as you work on it.
+Upon expiration, the bomb will simply stop functioning properly.
+You can track your progress and that of other students by going to the \href{https://bombs.alessandropellegrini.it/2425}{rankings} page.
+This page updates in real time to show the status of all bombs.
+
+\section{Tips (read carefully!)} \label{homework:tips}
+There are various ways to defuse your bomb.
+You can examine the assembly code in detail without ever running it to understand exactly how it behaves.
+This technique is very useful, but it is not always easy.
+You can also run the bomb inside a debugger, watching what it does step by step, using the information you gather to defuse it.
+This is probably the quickest technique.
+We ask you, however, to avoid adopting a \textit{brute force attack} technique: you could write a program that tests all possibilities to find the right solution for each stage.
+However, this approach is not good for more than one reason:
+\begin{itemize}
+    \item Every time the bomb explodes, you lose two points. The probability of finishing last is 100\%.
+    \item You don't know how long the strings to provide as input are, nor do you know which characters they are made up of. Even if you made the (\textit{incorrect}) assumption that the strings are at most 80 characters long and contain only lowercase letters, you would have to try $26^{80}$ combinations for each step. Even with a modern computer, you wouldn't finish before the delivery date.    
+    \item As you interact with the bomb, it contacts our servers to update the ranking in real time. Even if Dr. Evil was foresighted and implemented a form of request throttling, you could easily saturate the server's bandwidth, creating a disruption to the entire class.
+\end{itemize}
+There are various tools that are designed to help you understand how a program works and what's wrong when it doesn't work.
+Below is a list of some tools you may find useful for bomb analysis, with guidance on how to use them.
+Many of them are available for all operating systems, you just need to find them.
+\begin{itemize}
+    \item \lstinlinebg{gdb}/\lstinlinebg{lldb}: these are command line debuggers, available on virtually any platform. You can move through the program line by line, examine the memory and registers, look at both the source code and the assembly code (unfortunately Dr. Evil didn't leave us the sources...), set breakpoints, set watchpoints in memory, and even write scripts in Python.
+    \item \lstinlinebg{objdump -t}: the \lstinlinebg{objdump} command allows you to extract various information from a compiled binary. Using it with the \lstinlinebg{-t} flag will print the symbol table. The symbol table contains the names of all functions and all global variables present in the bomb, the names of all functions that the bomb calls, as well as their addresses. You can find out something by looking at the function names!
+    \item \lstinlinebg{objdump -d}: with this flag the command disassembles the bomb. You can also watch individual features. Reading the assembly code can help you understand how the bomb works. While \lstinlinebg{objdump -d} will give you a lot of information, it can't tell you the whole story like \lstinlinebg{gdb}. In fact, many \textquotedblleft magical\textquotedblright\ things happen after a program has been started, because between the \textit{program} and the \textit{process} there is a lot of complex work that the operating system and the standard library do in concert. You'll discover all this in future courses, but the effect is that in some cases a call to \lstinlinebg{scanf} can become something cryptic like:
+        \begin{lstlisting}[keywords={call}]
+8048c36:  e8 99 fc ff ff  call   80488d4 <_init+0x1a0>\end{lstlisting}
+    \item \lstinlinebg{strings}: this tool shows all the printable strings that are present in the bomb.
+\end{itemize}
+Are you looking for a particular instrument?
+Do you want to know how to best use the ones that have been described?
+It's time to read the documentation!
+Never forget about commands like \lstinlinebg{apropos}, \lstinlinebg{man} or \lstinlinebg{info}: they are your friends and can provide you with a lot of information far beyond simple library calls or command line programs.
+For example, \lstinlinebg{man ascii} also gives you information about typical encodings used by strings in C.
+\lstinlinebg{apropos gdb} will give you more information than you can handle about \lstinlinebg{gdb}.
+\lstinlinebg{info gas} will give you more than you ever wanted to know about the GNU assembler.
+Furthermore, the web can also be a treasure trove of information.
+If you find yourself in difficulty, do not hesitate to ask your professor for help, aware however that he too is dealing with bombs to defuse and may not be able to give you useful advice.
+
+\newpage  % Start a new page for Solutions
+
+% Solution chapter
+\chapter{Solution}
+This is the solution section where the solution to the homework are presented.
+
+\section{Introduction}
+To solve this homework we can use the \lstinlinebg{gdb} tool to disassemble the various phases.
+Subsequently, for a more complete explanation we convert the assembly code into C code.
+This allows us to understand in which points there are the various flags to find to move on to the next phase.
+Enjoy!
+
+\section{Source Code}
+The only code we can access is written in C language and is saved inside the \lstinlinebg{main.c} file which I reproduce below (I removed the comments to make reading more enjoyable):
+
+\begin{lstlisting}[language=C,keywords={FILE, int, char, fopen, exit, printf, if, else, return, stdin}]
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "phases.h"
+#include "utils/utils.h"
+
+FILE *infile;
+
+int main(int argc, char **argv) {
+    char *input;
+
+    if (argc == 1) {
+        infile = stdin;
+    } else if(argc == 2) {
+        if(!(infile = fopen(argv[1], "r"))) {
+            printf("%s: Error: Unable to open file %s\n", argv[0], argv[1]);
+            exit(8);
+        }
+    } else {
+        printf("Usage: %s [<input_file>]\n", argv[0]);
+        exit(8);
+    }
+
+    initialize_bomb();
+
+    printf("Welcome to my little devil bomb. You have six stages that you can use to blow yourself up. Have a great day!\n");
+
+    input = read_line();
+    phase_1(input);     
+    phase_defused();    
+    printf("Phase 1 defused. What do you think about the next one?\n");
+
+    input = read_line();
+    phase_2(input);
+    phase_defused();
+    printf("This was number 2. Keep it up!\n");
+
+    input = read_line();
+    phase_3(input);
+    phase_defused();
+    printf("You're halfway there!\n");
+
+    input = read_line();
+    phase_4(input);
+    phase_defused();
+    printf("Ok, you did it with this one. Now try the next one...\n");
+
+    input = read_line();
+    phase_5(input);
+    phase_defused();
+    printf("Great job! Now on to the next one...\n");
+
+    input = read_line();
+    phase_6(input);
+    phase_defused();
+
+    return 0;
+}   
+\end{lstlisting}
+
+After a quick read of the code it is easy to understand the path to follow.
+In particular, it is advisable to set, at each start of \lstinlinebg{gdb}, a breakpoint on the specific phase that we want to solve.
+The executable to analyze with \lstinlinebg{gdb} is found inside the \lstinlinebg{bombs/} folder, and in my case it has the name \lstinlinebg{311435.linux}.
+
+\lstdefinelanguage{x86_64}{
+    morekeywords=[1]{
+        mov, push, pop, ret, call, leave, enter,
+        add, sub, mul, div, inc, dec,
+        and, or, xor, not, shl, shr,
+        cmp, test, movb,
+        je, jne, jz, jnz, jg, jge, jl, jle, jmp,
+        lea, nop, cmpq, cmpb, jae, imul, sar,
+        get_student_id, sum_digits, get_quote, strings_not_equal, explode_bomb,
+        phase_1, phase_2, phase_3, phase_4, phase_5, phase_6, phase_secret,
+        movl, movq, movabs, cmpl, jge, ja, jmp, movslq, movslq, movabsq, movzbl, movsbl,
+        string_length, defused, async_notify, phase_defused,
+    },
+    morekeywords=[2]{
+        rax, rbx, rcx, rdx, rsi, rdi, rbp, rsp,
+        r8, r9, r10, r11, r12, r13, r14, r15,
+        eax, ebx, ecx, edx, esi, edi, ebp, esp,
+        ax, bx, cx, dx, si, di, bp, sp
+    },
+    comment=[l]{\#},
+    commentstyle=\color{codegreen},
+    keywordstyle=[1]\color{codepurple},
+    keywordstyle=[2]\color{codeblue},
+    stringstyle=\color{codered},
+    basicstyle=\fontspec{JetBrains Mono}\scriptsize,
+}
+
+\section{Phase 1}
+As anticipated, we need to use the following command:
+\begin{lstlisting}[language=bash, numbers=none]
+$ gdb bombs/311435.linux
+\end{lstlisting}
+Now, we can set a breakpoint on phase 1 using the following command inside the \lstinlinebg{gdb} environment:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) b phase_1
+\end{lstlisting}
+and finally we execute the code with the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) r
+\end{lstlisting}
+Now let's disassemble the \lstinlinebg{phase_1} function:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) disassemble phase_1
+\end{lstlisting}
+obtaining the following assembly code:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x20,%rsp
+mov    %rdi,-0x8(%rbp)
+call   0x401ef0 <get_student_id>
+mov    %rax,-0x10(%rbp)
+mov    -0x10(%rbp),%rdi
+call   0x401610 <sum_digits>
+mov    %rax,-0x10(%rbp)
+mov    -0x8(%rbp),%rdi
+mov    -0x10(%rbp),%rax
+mov    %rdi,-0x18(%rbp)
+mov    %rax,%rdi
+call   0x405950 <get_quote>
+mov    -0x18(%rbp),%rdi
+mov    %rax,%rsi
+call   0x405b80 <strings_not_equal>
+and    $0x1,%al
+movzbl %al,%ecx
+cmp    $0x0,%ecx
+je     0x4016c5 <phase_1+85>
+call   0x4015b0 <explode_bomb>
+add    $0x20,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+The C dual of this assembly code is as follows:
+\begin{lstlisting}[language=C,keywords={int, char, const, if, void, get_student_id, sum_digits, get_quote, strings_not_equal, explode_bomb}]
+void phase_1(const char *input) {
+    int student_id = get_student_id();
+    int sum = sum_digits(student_id);
+    const char *quote = get_quote(sum);
+    if (strings_not_equal(input, quote)) {
+        explode_bomb();
+    }
+}
+\end{lstlisting}
+This means that the return value of the \lstinlinebg{get_quote} function is compared with the input we need to insert.
+Therefore using the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) x/s $rdi
+\end{lstlisting}
+we can see the string that we need to insert to defuse the bomb.
+In this case the string is:
+\begin{lstlisting}[numbers=none]
+La semplicita` non precede la complessita`, ma ne consegue.
+\end{lstlisting}
+We can then save our string inside the \lstinlinebg{solution.txt} file.
+Before starting the next phase, we exit \lstinlinebg{gdb} with the \lstinlinebg{q} command.
+
+\section{Phase 2}
+To start the next phase we use the following command:
+\begin{lstlisting}[language=bash,numbers=none]
+$ gdb --args 311435.linux ../solution.txt
+\end{lstlisting}
+with which we can specify the \lstinlinebg{solution.txt} file as a parameter.
+Now, we can set a breakpoint on phase 2 using the following command inside the \lstinlinebg{gdb} environment:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) b phase_2
+\end{lstlisting}
+and finally we execute the code with the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) r
+\end{lstlisting}
+Now let's disassemble the \lstinlinebg{phase_2} function:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) disassemble phase_2
+\end{lstlisting}
+obtaining the following assembly code:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x10,%rsp
+mov    %rdi,-0x8(%rbp)
+call   0x401ef0 <get_student_id>
+shr    $0x2,%rax
+mov    %rax,-0x10(%rbp)
+mov    -0x8(%rbp),%rdi
+mov    -0x10(%rbp),%rax
+xor    %ecx,%ecx
+mov    %ecx,%edx
+mov    $0x2c,%esi
+div    %rsi
+imul   $0xff,%rdx,%rdx
+movabs $0x40b9b0,%rsi
+add    %rdx,%rsi
+call   0x405b80 <strings_not_equal>
+and    $0x1,%al
+movzbl %al,%ecx
+cmp    $0x0,%ecx
+je     0x4017a9 <phase_2+89>
+call   0x4015b0 <explode_bomb>
+add    $0x10,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+The C dual of this assembly code is as follows:
+\begin{lstlisting}[language=C,keywords={int, char, if, void, get_student_id, strings_not_equal, const, unsigned, long, explode_bomb}]
+void phase_2(const char *input) {
+    char *student_id = get_student_id();
+    unsigned long value = student_id / 4;
+
+    unsigned long result = value * 0xFF;
+    const char *correct_string = (const char *)(0x40b9b0 + result);
+
+    if (strings_not_equal(input, correct_string)) {
+        explode_bomb();
+    }
+}
+\end{lstlisting}
+Therefore using the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) x/s $rsi
+\end{lstlisting}
+we can see the string that we need to insert to defuse the bomb.
+In this case the string is:
+\begin{lstlisting}[numbers=none]
+Se qualcuno dice: "Voglio un linguaggio di programmazione in cui devo solo dire cio` che voglio," dagli un lecca-lecca.
+\end{lstlisting}
+We can then save our string inside the \lstinlinebg{solution.txt} file.
+Before starting the next phase, we exit \lstinlinebg{gdb} with the \lstinlinebg{q} command.
+
+\section{Phase 3}
+To start the next phase we use the following command:
+\begin{lstlisting}[language=bash,numbers=none]
+$ gdb --args 311435.linux ../solution.txt
+\end{lstlisting}
+with which we can specify the \lstinlinebg{solution.txt} file as a parameter.
+Now, we can set a breakpoint on phase 3 using the following command inside the \lstinlinebg{gdb} environment:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) b phase_3
+\end{lstlisting}
+and finally we execute the code with the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) r
+\end{lstlisting}
+Now let's disassemble the \lstinlinebg{phase_3} function:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) disassemble phase_3
+\end{lstlisting}
+obtaining the following assembly code:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x30,%rsp
+mov    %rdi,-0x8(%rbp)
+movl   $0x8,-0xc(%rbp)
+movl   $0xffffffff,-0x10(%rbp)
+movq   $0x0,-0x18(%rbp)
+mov    -0x8(%rbp),%rdi
+movabs $0x4062eb,%rsi
+lea    -0xc(%rbp),%rdx
+lea    -0x10(%rbp),%rcx
+mov    $0x0,%al
+call   0x401200 <__isoc99_sscanf@plt>
+mov    %eax,-0x1c(%rbp)
+cmpl   $0x2,-0x1c(%rbp)
+jge    0x401851 <phase_3+81>
+call   0x4015b0 <explode_bomb>
+mov    -0xc(%rbp),%eax
+mov    %eax,%ecx
+mov    %rcx,%rdx
+sub    $0x7,%rdx
+mov    %rcx,-0x28(%rbp)
+ja     0x4018fd <phase_3+253>
+mov    -0x28(%rbp),%rax
+mov    0x406208(,%rax,8),%rcx
+jmp    *%rcx
+mov    0x40a4e8,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+mov    0x40a4f8,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+mov    0x40a508,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+mov    0x40a518,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+mov    0x40a528,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+mov    0x40a4f0,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+mov    0x40a500,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+mov    0x40a510,%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x401902 <phase_3+258>
+call   0x4015b0 <explode_bomb>
+mov    -0x18(%rbp),%rax
+movslq -0x10(%rbp),%rcx
+cmp    %rcx,%rax
+je     0x401918 <phase_3+280>
+call   0x4015b0 <explode_bomb>
+add    $0x30,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+The C dual of this assembly code is as follows:
+\begin{lstlisting}[language=C,keywords={int, char, if, void, sscanf, explode_bomb, const, long, static}]
+void phase_3(const char *input) {
+    int index, target_value;
+    long resolved_value;
+
+    int read_values = sscanf(input, "%d %d", &index, &target_value);
+    if (read_values < 2) {
+        explode_bomb();
+    }
+
+    if (index < 0 || index > 7) {
+        explode_bomb();
+    }
+
+    static const long jump_table[] = {
+        0x40a4e8, 0x40a4f0, 0x40a4f8, 0x40a500,
+        0x40a508, 0x40a510, 0x40a518, 0x40a528
+    };
+
+    resolved_value = jump_table[index];
+
+    if (resolved_value != target_value) {
+        explode_bomb();
+    }
+}
+\end{lstlisting}    
+In this case the input numbers that we need to insert to defuse the bomb is:
+\begin{lstlisting}[numbers=none]
+7 41
+\end{lstlisting}
+We can then save our numbers inside the \lstinlinebg{solution.txt} file.
+Before starting the next phase, we exit \lstinlinebg{gdb} with the \lstinlinebg{q} command.
+
+\section{Phase 4}
+To start the next phase we use the following command:
+\begin{lstlisting}[language=bash,numbers=none]
+$ gdb --args 311435.linux ../solution.txt
+\end{lstlisting}
+with which we can specify the \lstinlinebg{solution.txt} file as a parameter.
+Now, we can set a breakpoint on phase 4 using the following command inside the \lstinlinebg{gdb} environment:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) b phase_4
+\end{lstlisting}
+and finally we execute the code with the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) r
+\end{lstlisting}
+Now let's disassemble the \lstinlinebg{phase_4} function:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) disassemble phase_4
+\end{lstlisting}
+obtaining the following assembly code:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x20,%rsp
+mov    %rdi,-0x8(%rbp)
+movabs $0x40a250,%rax
+mov    %rax,-0x10(%rbp)
+movq   $0x0,-0x18(%rbp)
+mov    -0x8(%rbp),%rax
+mov    %rax,-0x20(%rbp)
+mov    -0x10(%rbp),%rax
+cmpq   $0x0,(%rax)
+je     0x4019de <phase_4+110>
+mov    -0x10(%rbp),%rax
+mov    (%rax),%rax
+cmpq   $0x0,0x8(%rax)
+je     0x4019ce <phase_4+94>
+mov    -0x10(%rbp),%rax
+mov    (%rax),%rax
+mov    0x8(%rax),%rax
+mov    %rax,-0x18(%rbp)
+jmp    0x4019de <phase_4+110>
+mov    -0x10(%rbp),%rax
+mov    (%rax),%rax
+mov    %rax,-0x10(%rbp)
+jmp    0x40199a <phase_4+42>
+jmp    0x4019e3 <phase_4+115>
+mov    -0x18(%rbp),%rax
+cmpb   $0x0,(%rax)
+je     0x401a2c <phase_4+188>
+mov    -0x18(%rbp),%rax
+mov    %rax,%rcx
+add    $0x1,%rcx
+mov    %rcx,-0x18(%rbp)
+movsbl (%rax),%edx
+mov    -0x20(%rbp),%rax
+mov    %rax,%rcx
+add    $0x1,%rcx
+mov    %rcx,-0x20(%rbp)
+movsbl (%rax),%esi
+cmp    %esi,%edx
+je     0x401a27 <phase_4+183>
+call   0x4015b0 <explode_bomb>
+jmp    0x4019e3 <phase_4+115>
+add    $0x20,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+The C dual of this assembly code is as follows:
+\begin{lstlisting}[language=C,keywords={int, char, if, void, explode_bomb, const, while, NULL}]
+void phase_4(const char *input) {
+    const char *correct_string = (const char *)0x40a250;
+    const char *list_string = NULL;
+    const char **node = (const char **)correct_string;
+
+    while (node != NULL) {
+        if (*node == NULL) {
+            break;
+        }
+        if ((*node)[1] == '\0') {
+            list_string = *node;
+            break;
+        }
+        node = (const char **)(*node)[1];
+    }
+
+    if (list_string == NULL) {
+        explode_bomb();
+    }
+
+    const char *p1 = list_string;
+    const char *p2 = input;
+
+    while (*p1 != '\0') {
+        if (*p2 == '\0') {
+            explode_bomb();
+        }
+        if (*p1 != *p2) {
+            explode_bomb();
+        }
+        p1++;
+        p2++;
+    }
+
+    if (*p2 != '\0') {
+        explode_bomb();
+    }
+}
+\end{lstlisting}
+By analyzing the addresses of the linked list we arrive at the following string:
+\begin{lstlisting}[numbers=none]
+Poi c'e` il processore a 1 bit che ha due istruzioni: nop e halt.
+\end{lstlisting}
+We can then save our string inside the \lstinlinebg{solution.txt} file.
+Before starting the next phase, we exit \lstinlinebg{gdb} with the \lstinlinebg{q} command.
+
+\section{Phase 5}
+To start the next phase we use the following command:
+\begin{lstlisting}[language=bash,numbers=none]
+$ gdb --args 311435.linux ../solution.txt
+\end{lstlisting}
+with which we can specify the \lstinlinebg{solution.txt} file as a parameter.
+Now, we can set a breakpoint on phase 5 using the following command inside the \lstinlinebg{gdb} environment:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) b phase_5
+\end{lstlisting}
+and finally we execute the code with the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) r
+\end{lstlisting}
+Now let's disassemble the \lstinlinebg{phase_5} function:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) disassemble phase_5
+\end{lstlisting}
+obtaining the following assembly code:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x20,%rsp
+mov    %rdi,-0x8(%rbp)
+mov    -0x8(%rbp),%rdi
+call   0x405b30 <string_length>
+mov    %rax,-0x10(%rbp)
+cmpq   $0x7,-0x10(%rbp)
+je     0x401ab9 <phase_5+41>
+call   0x4015b0 <explode_bomb>
+movl   $0x0,-0x1c(%rbp)
+cmpl   $0x7,-0x1c(%rbp)
+jge    0x401afb <phase_5+107>
+mov    -0x8(%rbp),%rax
+movslq -0x1c(%rbp),%rcx
+movsbl (%rax,%rcx,1),%edx
+and    $0xf,%edx
+movslq %edx,%rax
+mov    0x40a2b0(,%rax,1),%sil
+movslq -0x1c(%rbp),%rax
+mov    %sil,-0x18(%rbp,%rax,1)
+mov    -0x1c(%rbp),%eax
+add    $0x1,%eax
+mov    %eax,-0x1c(%rbp)
+jmp    0x401ac0 <phase_5+48>
+lea    -0x18(%rbp),%rdi
+movb   $0x0,-0x11(%rbp)
+mov    0x40a568,%rsi
+call   0x405b80 <strings_not_equal>
+and    $0x1,%al
+movzbl %al,%ecx
+cmp    $0x0,%ecx
+je     0x401b23 <phase_5+147>
+call   0x4015b0 <explode_bomb>
+add    $0x20,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+The C dual of this assembly code is as follows:
+\begin{lstlisting}[language=C,keywords={int, char, if, void, string_length, explode_bomb, const, size_t, for}]
+void phase_5(const char *input) {
+    size_t length = string_length(input);
+    if (length != 7) {
+        explode_bomb();
+    }
+
+    char transformed[7];
+    for (int i = 0; i < 7; ++i) {
+        char c = input[i];
+        c = c & 0xF;
+        transformed[i] = (char)(0x40a2b0[c]);
+    }
+    transformed[7] = '\0';
+
+    if (strings_not_equal(transformed, (const char *)0x40a568)) {
+        explode_bomb();
+    }
+}
+\end{lstlisting}
+Analyzing the address \lstinlinebg{0x40a568} there is the string \lstinlinebg{mielosi}.
+Since a mask is applied to the input, to obtain \lstinlinebg{mielosi}, knowing that the alphabet (at the address \lstinlinebg{0x40a2b0}) is \lstinlinebg{mersnoilt} we simply have to insert in the file \lstinlinebg{solution.txt} (and therefore in input) the positions that form this string, namely \lstinlinebg{0617536}.
+Before starting the next phase, we exit \lstinlinebg{gdb} with the \lstinlinebg{q} command.
+
+\section{Phase 6}
+To start the next phase we use the following command:
+\begin{lstlisting}[language=bash,numbers=none]
+$ gdb --args 311435.linux ../solution.txt
+\end{lstlisting}
+with which we can specify the \lstinlinebg{solution.txt} file as a parameter.
+Now, we can set a breakpoint on phase 6 using the following command inside the \lstinlinebg{gdb} environment:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) b phase_6
+\end{lstlisting}
+and finally we execute the code with the command:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) r
+\end{lstlisting}
+Now let's disassemble the \lstinlinebg{phase_6} function:
+\begin{lstlisting}[language=bash, numbers=none]
+(gdb) disassemble phase_6
+\end{lstlisting}
+obtaining the following assembly code:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x20,%rsp
+mov    %rdi,-0x8(%rbp)
+movl   $0xffffffff,-0xc(%rbp)
+movl   $0xffffffff,-0x10(%rbp)
+movl   $0xb,-0x14(%rbp)
+mov    -0x8(%rbp),%rdi
+movabs $0x4062e8,%rsi
+lea    -0xc(%rbp),%rdx
+lea    -0x14(%rbp),%rcx
+lea    -0x10(%rbp),%r8
+mov    $0x0,%al
+call   0x401200 <__isoc99_sscanf@plt>
+mov    %eax,-0x1c(%rbp)
+cmpl   $0x3,-0x1c(%rbp)
+jne    0x401db9 <phase_6+89>
+cmpl   $0x0,-0xc(%rbp)
+jge    0x401dbe <phase_6+94>
+call   0x4015b0 <explode_bomb>
+xor    %esi,%esi
+mov    -0xc(%rbp),%edi
+mov    $0xa,%edx
+call   0x401c90 <bs>
+mov    %eax,-0x18(%rbp)
+mov    -0x18(%rbp),%eax
+cmp    -0x14(%rbp),%eax
+jne    0x401dfc <phase_6+156>
+mov    -0x10(%rbp),%eax
+cmp    0x40a540,%eax
+jne    0x401dfc <phase_6+156>
+mov    -0xc(%rbp),%eax
+cmp    0x40a570,%eax
+je     0x401e01 <phase_6+161>
+call   0x4015b0 <explode_bomb>
+add    $0x20,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+The C dual of this assembly code is as follows:
+\begin{lstlisting}[language=C,keywords={int, char, if, void, sscanf, explode_bomb, const, bs}]
+void phase_6(const char *input) {
+    int num1, num2, num3;
+
+    int parsed = sscanf(input, "%d %d %d", &num1, &num3, &num2);
+    if (parsed != 3) {
+        explode_bomb();
+    }
+
+    if (num1 < 0) {
+        explode_bomb();
+    }
+
+    int bs_result = bs(num1, 0xA);
+    if (bs_result != num3) {
+        explode_bomb();
+    }
+
+    if (num2 != 0x40a540) {
+        explode_bomb();
+    }
+
+    if (num1 != 0x40a570) {
+        explode_bomb();
+    }
+}
+\end{lstlisting}
+In this case the input numbers that we need to insert to defuse the bomb is:
+\begin{lstlisting}[numbers=none]
+8 0 3
+\end{lstlisting}
+We can then save our numbers inside the \lstinlinebg{solution.txt} file.
+Before starting the next phase, we exit \lstinlinebg{gdb} with the \lstinlinebg{q} command.
+
+\section{Phase Secret}
+To access the secret phase, note that in the \lstinlinebg{phase_defused} function there is a call to the \lstinlinebg{phase_secret} function:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x10,%rsp
+call   0x4056e0 <defused>
+call   0x404ad0 <async_notify>
+cmpl   $0x6,0x40a544
+jne    0x401fd8 <phase_defused+200>
+movabs $0x40a5b0,%rax
+add    $0x2fd,%rax
+mov    %rax,%rdi
+mov    $0x20,%esi
+call   0x401160 <strrchr@plt>
+mov    %rax,-0x8(%rbp)
+mov    -0x8(%rbp),%rax
+add    $0x1,%rax
+mov    %rax,-0x8(%rbp)
+mov    %rax,%rdi
+movabs $0x4062f1,%rsi
+call   0x405b80 <strings_not_equal>
+and    $0x1,%al
+movzbl %al,%ecx
+cmp    $0x0,%ecx
+jne    0x401fb2 <phase_defused+162>
+movabs $0x4062fa,%rdi
+call   0x4010d0 <puts@plt>
+mov    %eax,-0xc(%rbp)
+call   0x4024f0 <read_line>
+mov    %rax,%rdi
+call   0x405d40 <phase_secret>
+call   0x401f10 <phase_defused>
+movabs $0x406363,%rdi
+call   0x4010d0 <puts@plt>
+call   0x404a00 <sync_notify>
+movabs $0x406398,%rdi
+call   0x4010d0 <puts@plt>
+movabs $0x4063c4,%rdi
+mov    %eax,-0x10(%rbp)
+call   0x4010d0 <puts@plt>
+add    $0x10,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+And in particular, this function can be accessed only if, scrolling through the linked list in phase 4, the string \lstinlinebg{--DrMale} is found.
+Then you need to change the string in phase 4 to the following:
+\begin{lstlisting}[numbers=none]
+Poi c'e` il processore a 1 bit che ha due istruzioni: nop e halt. --DrMale
+\end{lstlisting}
+So by restarting \lstinlinebg{gdb}, you will actually be able to access the \lstinlinebg{secret_phase} function of which I report directly the disassembled:
+\begin{lstlisting}[language=x86_64]
+push   %rbp
+mov    %rsp,%rbp
+sub    $0x20,%rsp
+mov    %rdi,-0x8(%rbp)
+mov    -0x8(%rbp),%rdi
+movabs $0x4062ee,%rsi
+lea    -0xc(%rbp),%rdx
+mov    $0x0,%al
+call   0x401200 <__isoc99_sscanf@plt>
+mov    %eax,-0x10(%rbp)
+cmpl   $0x1,-0x10(%rbp)
+je     0x405d77 <phase_secret+55>
+call   0x4015b0 <explode_bomb>
+movl   $0x0,-0x14(%rbp)
+mov    -0x14(%rbp),%eax
+mov    %eax,%ecx
+cmp    $0x20,%rcx
+jae    0x405ddd <phase_secret+157>
+imul   $0x41c64e6d,0x40a564,%eax
+add    $0x3039,%eax
+and    $0x7fffffff,%eax
+mov    %eax,0x40a564
+mov    0x40a564,%eax
+and    $0x1,%eax
+mov    -0xc(%rbp),%ecx
+and    $0x1,%ecx
+cmp    %ecx,%eax
+je     0x405dc6 <phase_secret+134>
+call   0x4015b0 <explode_bomb>
+mov    -0xc(%rbp),%eax
+sar    $0x1,%eax
+mov    %eax,-0xc(%rbp)
+mov    -0x14(%rbp),%eax
+add    $0x1,%eax
+mov    %eax,-0x14(%rbp)
+jmp    0x405d7e <phase_secret+62>
+add    $0x20,%rsp
+pop    %rbp
+ret
+\end{lstlisting}
+The C dual of this assembly code is as follows:
+\begin{lstlisting}[language=C,keywords={int, char, if, void, sscanf, explode_bomb, NULL, while, const}]
+void phase_secret(const char *input) {
+    if (input == NULL) {
+        explode_bomb();
+    }
+
+    int value;
+    int iterations = 0;
+    int random_state = 4;
+
+    if (sscanf(input, "%d", &value) != 1) {
+        explode_bomb();
+    }
+
+    while (iterations < 32) {
+        random_state = (random_state * 0x41c64e6d + 0x3039) & 0x7fffffff;
+
+        if ((random_state & 1) != (value & 1)) {
+            explode_bomb();
+        }
+
+        value >>= 1;
+        iterations++;
+    }
+
+    printf("Phase secret defused successfully!\n");
+}
+\end{lstlisting}
+To solve the secret phase it is better to create an exploit in C that performs exactly the reverse operations of the secret phase, here is the complete code:
+\begin{lstlisting}[language=C,keywords={int, char, if, void, sscanf, const, sizeof, stdin, fgets, printf, exit, NULL}]
+#include <stdio.h>
+#include <stdlib.h>
+
+void explode_bomb() {
+    printf("Bomb exploded!\n");
+    exit(1);
+}
+
+void phase_secret(const char *input) {
+    if (input == NULL) {
+        explode_bomb();
+    }
+
+    int value;
+    int iterations = 0;
+    int random_state = 4;
+
+    if (sscanf(input, "%d", &value) != 1) {
+        explode_bomb();
+    }
+
+    while (iterations < 32) {
+        random_state = (random_state * 0x41c64e6d + 0x3039) & 0x7fffffff;
+
+        if ((random_state & 1) != (value & 1)) {
+            explode_bomb();
+        }
+
+        value >>= 1;
+        iterations++;
+    }
+
+    printf("Phase secret defused successfully!\n");
+}
+
+void exploit() {
+    int random_state = 4;
+    int target_value = 0;
+    
+    for (int i = 0; i < 32; ++i) {
+        random_state = (random_state * 0x41c64e6d + 0x3039) & 0x7fffffff;
+        int bit = (random_state & 1);
+        target_value |= (bit << i);
+    }
+    
+    printf("Exploit phase_secret with: %d\n", target_value);
+}
+
+int main(void) {
+    char input[100];
+    
+    exploit();
+
+    printf("Enter a number: ");
+    fgets(input, sizeof(input), stdin);
+    phase_secret(input);
+    
+    return 0;
+}
+\end{lstlisting}
+so if we compile and run the exploit we get:
+\begin{lstlisting}[language=bash,numbers=none]
+$ gcc phase-secret.c 
+$ ./a.out 
+Exploit phase_secret with: 1431655765
+Enter a number: 1431655765                               
+Phase secret defused successfully!
+\end{lstlisting}
+
+\section{Conclusion}
+This homework had such a deadline that by the time I thought about creating this pdf I could no longer test the actual commands on \lstinlinebg{gdb} and thus actually show the reasoning step by step.
+So I went off the cuff, writing down what I remembered of each individual phase.
+Unfortunately there are some things that if not seen in detail you have to trust their actual functioning.
+I don't know if in the future I will have the opportunity to redo a homework like this, if it were to happen I will remember to document the entire process as soon as possible.
+
+\end{document}
