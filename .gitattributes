@@ -1,2 +1,3 @@
 *.dig linguist-detectable=false
 *.tm linguist-detectable=false
+*.tex linguist-detectable=false
