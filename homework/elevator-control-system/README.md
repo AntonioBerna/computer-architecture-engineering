@@ -36,9 +36,9 @@ The stop state corresponds to the moment in which the elevator arrives at a floo
 The elevator also needs to keep track of which floor it is on at any given moment in time. For this purpose, the following variables are used:
 
 - **Floor T**: $y_2 = 0; y_1 = 0; y_0 = 0$;
-- **Floor 1**: $y_2 = 0; y_1 = 0; y_0 = $1;
+- **Floor 1**: $y_2 = 0; y_1 = 0; y_0 = 1$;
 - **Floor 2**: $y_2 = 0; y_1 = 1; y_0 = 0$;
-- **Floor 3**: $y_2 = 0; y_1 = 1; y_0 = $1;
+- **Floor 3**: $y_2 = 0; y_1 = 1; y_0 = 1$;
 - **VIP Plan**: $y_2 = 1; y_1 = 0; y_0 = 0$;
 
 When the system starts, it can be assumed that the elevator is at floor T in the waiting state.
